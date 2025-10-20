@@ -84,7 +84,10 @@
 
   <div class="wrapper">
     <div class="svg-container">
-      <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" aria-labelledby="title desc" role="img">
+      <!-- mantém namespaces para links dentro do SVG -->
+      <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet"
+           class="svg-content" aria-labelledby="title desc" role="img"
+           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title id="title">Fluxograma com efeito Pulse</title>
         <desc id="desc">Fluxo com início, nove etapas e término. Todas as caixas têm efeito pulse ao passar o mouse.</desc>
 
@@ -115,27 +118,39 @@
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 2 -->
+          <!-- Nó 2 (com LINK para a Planilha) -->
           <g class="node" tabindex="0" transform="translate(268)">
-            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Planilha Google</tspan>
-              <tspan x="47" dy="11">(Sheets)</tspan>
-              <tspan x="47" dy="11">Carteira ABC Paulista</tspan>
-            </text>
+            <a class="node-link"
+               href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
+               xlink:href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
+               target="_blank" rel="noopener noreferrer">
+              <title>Abrir Planilha Google (Sheets) — Carteira ABC Paulista</title>
+              <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+              <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+              <text class="node-label xs" x="47" y="40" text-anchor="middle">
+                <tspan x="47" dy="0">Planilha Google</tspan>
+                <tspan x="47" dy="11">(Sheets)</tspan>
+                <tspan x="47" dy="11">Carteira ABC Paulista</tspan>
+              </text>
+            </a>
           </g>
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 3 -->
+          <!-- Nó 3 (com LINK para a Agenda) -->
           <g class="node" tabindex="0" transform="translate(400)">
-            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label sm" x="47" y="45" text-anchor="middle">
-              <tspan x="47" dy="0">Agenda</tspan>
-              <tspan x="47" dy="11">Rogerio Furian</tspan>
-            </text>
+            <a class="node-link"
+               href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
+               xlink:href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
+               target="_blank" rel="noopener noreferrer">
+              <title>Abrir Agenda — Rogério Furian (Google Calendar)</title>
+              <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+              <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+              <text class="node-label sm" x="47" y="45" text-anchor="middle">
+                <tspan x="47" dy="0">Agenda</tspan>
+                <tspan x="47" dy="11">Rogerio Furian</tspan>
+              </text>
+            </a>
           </g>
         </g>
         
@@ -164,14 +179,11 @@
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 6 (Custo/Recurso) — FIX: anel de pulso retangular alinhado -->
+          <!-- Nó 6 (Custo/Recurso) -->
           <g class="node" tabindex="0" transform="translate(268)">
-            <!-- anel de pulso alinhado ao retângulo -->
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <!-- forma decorativa (losango) ao fundo -->
             <polygon class="main" points="60,20 100,40 100,80 60,100 20,80 20,40"
                      fill="#72508d" transform="translate(-12,-10)"/>
-            <!-- retângulo principal -->
             <rect class="main" fill="#72508d" stroke="#72508d" stroke-width="0"
                   x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label sm" x="47" y="45" text-anchor="middle" fill="#fff">
