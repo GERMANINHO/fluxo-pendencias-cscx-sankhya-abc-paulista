@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fluxograma CS/CX — Sankhya ABC Paulista (SVG)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fluxograma CS/CX — Sankhya ABC Paulista (SVG idêntico ao print)</title>
   <style>
-    :root{
-      --bg:#0b0d12; --ink:#111; --stroke:#333; --line:#111; --shape:#fff; --text:#111;
-    }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:#f7f7f7;font:14px/1.4 system-ui,Segoe UI,Roboto}
-    .wrap{max-width:1200px;margin:24px auto;padding:8px 16px;background:var(--bg);border-radius:14px}
-    .board{background:#fff;border-radius:12px;box-shadow:0 1px 12px rgba(0,0,0,.12);overflow:hidden}
-    .legend{color:#cbd5e1;font-size:12px;margin:8px 2px}
+    body{margin:0;background:#ffffff;font:14px/1.4 system-ui,Segoe UI,Roboto;color:#0f172a}
+    .container{max-width:2100px;margin:24px auto;padding:0 12px}
+    .board{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
     svg{width:100%;height:auto;display:block}
+    .lbl{font:500 16px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
+    .sm{font:500 14px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
     a:hover [data-stroke]{stroke:#0ea5e9}
-    a:hover [data-fill]{fill:#eef6ff}
-    .lbl{font:500 14px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
-    .small{font:500 12px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
+    a:hover [data-fill]{fill:#f8fafc}
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="container">
     <div class="board">
-      <!-- ViewBox usa proporção próxima à sua imagem (2048x348) para ficar fiel -->
-      <svg viewBox="0 0 2048 348" xmlns="http://www.w3.org/2000/svg">
-        <!-- Marcadores de seta -->
+      <!-- ViewBox proporcional ao print (bem largo, pouco alto) -->
+      <svg viewBox="0 0 2200 520" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arrow" markerWidth="18" markerHeight="18" refX="12" refY="6" orient="auto">
             <path d="M0,0 L12,6 L0,12 Z" fill="#111"/>
@@ -35,67 +30,76 @@
 
         <!-- ======== FORMAS ======== -->
         <!-- Início (elipse) -->
-        <a xlink:href="#inicio" target="_self">
+        <a xlink:href="#inicio">
           <g>
-            <ellipse cx="120" cy="174" rx="90" ry="60" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="120" y="179" text-anchor="middle">Inicio</text>
+            <ellipse cx="140" cy="260" rx="95" ry="68" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="140" y="265" text-anchor="middle">Início</text>
           </g>
         </a>
 
         <!-- Pendencia (retângulo com cantos) -->
         <a xlink:href="#pendencia">
           <g>
-            <rect x="320" y="128" width="170" height="95" rx="12" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="405" y="184" text-anchor="middle">Pendencia</text>
+            <rect x="360" y="210" width="240" height="110" rx="14" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="480" y="270" text-anchor="middle">Pendencia</text>
           </g>
         </a>
 
-        <!-- Google Sheets (documento com base ondulada) -->
-        <a xlink:href="#sheets">
+        <!-- Planilha Google (documento com base ondulada, mais largo) -->
+        <a xlink:href="#planilha">
           <g>
-            <path d="M620 128 h360 a12 12 0 0 1 12 12 v56
-                     c-60 20 -120 20 -180 0 s-120 -20 -180 0 v-56
-                     a12 12 0 0 1 12 -12 z"
+            <path d="M660 180 h760 a14 14 0 0 1 14 14 v160
+                     c-120 40 -240 40 -360 0 s-240 -40 -360 0 v-160
+                     a14 14 0 0 1 14 -14 z"
                   data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="small" x="800" y="170" text-anchor="middle">Google (Sheets) Carteira ABC PAULISTA</text>
+            <text class="sm" x="1040" y="250" text-anchor="middle">
+              <tspan>Planilha Google (Sheets) Carteira ABC PAULISTA</tspan>
+            </text>
           </g>
         </a>
 
         <!-- Agenda Rogerio Furian (trapézio) -->
         <a xlink:href="#agenda">
           <g>
-            <path d="M1120 208 l-30 80 h240 l-30 -80 z"
-                  transform="translate(0,-100)"
-                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="1240" y="184" text-anchor="middle">Agenda Rogerio<br/>Furian</text>
+            <path d="M1180 360 l-40 110 h320 l-40 -110 z" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1300" y="425" text-anchor="middle">
+              <tspan x="1300" dy="0">Agenda Rogerio</tspan>
+              <tspan x="1300" dy="18">Furian</tspan>
+            </text>
           </g>
         </a>
 
-        <!-- Escopo/Plano/Status/Custo/Recurso (retângulo alto com cantos) -->
+        <!-- Escopo/Plano/Status/Custo/Recurso (retângulo alto com barras laterais) -->
         <a xlink:href="#escopo">
           <g>
-            <rect x="1180" y="36" width="220" height="110" rx="14"
-                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="small" x="1290" y="70" text-anchor="middle">Escopo/Plano/Status/Custo/Recurso</text>
+            <rect x="1050" y="40" width="280" height="150" rx="16" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <rect x="1068" y="52" width="18" height="126" rx="6" fill="#fff" stroke="#111" stroke-width="3"/>
+            <rect x="1294" y="52" width="18" height="126" rx="6" fill="#fff" stroke="#111" stroke-width="3"/>
+            <text class="sm" x="1190" y="82" text-anchor="middle">
+              <tspan x="1190" dy="0">Escopo/Plano/Status/Custo/</tspan>
+              <tspan x="1190" dy="18">Recurso</tspan>
+            </text>
           </g>
         </a>
 
         <!-- CS Acompanhamento (retângulo) -->
         <a xlink:href="#cs">
           <g>
-            <rect x="1460" y="150" width="200" height="90" rx="10"
-                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="1560" y="200" text-anchor="middle">CS<br/>Acompanhamento</text>
+            <rect x="1540" y="220" width="260" height="120" rx="12" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1670" y="280" text-anchor="middle">
+              <tspan x="1670" dy="0">CS</tspan>
+              <tspan x="1670" dy="18">Acompanhamento</tspan>
+            </text>
           </g>
         </a>
 
-        <!-- Spams Cliente/Rogerio... (paralelogramo inclinado) -->
+        <!-- Spams Cliente/Rogerio Furian / Atualizar Planilha (paralelogramo inclinado) -->
         <a xlink:href="#spams">
           <g>
-            <polygon points="1600,34 1840,20 1840,120 1600,134"
-                     data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="small" x="1720" y="70" text-anchor="middle">
-              Spams Cliente/Rogerio Furian/ Atualizar Planilha
+            <polygon points="1520,40 1960,20 1960,140 1520,160" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="sm" x="1740" y="86" text-anchor="middle">
+              <tspan x="1740" dy="0">Spams Cliente/Rogerio Furian /</tspan>
+              <tspan x="1740" dy="18">Atualizar Planilha</tspan>
             </text>
           </g>
         </a>
@@ -103,55 +107,54 @@
         <!-- Validar Entrega (losango) -->
         <a xlink:href="#validar">
           <g>
-            <polygon points="1860,170 1930,210 1860,250 1790,210"
-                     data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="1860" y="213" text-anchor="middle">Validar<br/>Entrega</text>
+            <polygon points="1960,300 2060,360 1960,420 1860,360" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1960" y="366" text-anchor="middle">
+              <tspan x="1960" dy="0">Validar</tspan>
+              <tspan x="1960" dy="18">Entrega</tspan>
+            </text>
           </g>
         </a>
 
         <!-- Fim (elipse) -->
         <a xlink:href="#fim">
           <g>
-            <ellipse cx="1980" cy="210" rx="60" ry="46" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="1980" y="215" text-anchor="middle">Fim</text>
+            <ellipse cx="2120" cy="360" rx="80" ry="62" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="2120" y="366" text-anchor="middle">Fim</text>
           </g>
         </a>
 
         <!-- ======== SETAS ======== -->
-        <!-- Inicio -> Pendencia -->
-        <path d="M210 174 H320" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <!-- Início -> Pendencia -->
+        <path d="M235 260 H360" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
 
-        <!-- Pendencia -> Sheets (com '>>>') -->
-        <path d="M490 174 H610" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-        <text x="560" y="165" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+        <!-- Pendencia -> Planilha (com '>>>') -->
+        <path d="M600 265 H660" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <text x="630" y="252" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
 
-        <!-- Sheets -> Agenda -->
-        <path d="M980 174 H1090" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-        <text x="1040" y="165" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+        <!-- Planilha -> Agenda -->
+        <path d="M1420 300 H1500 V360" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <text x="1470" y="290" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
 
-        <!-- Agenda -> CS -->
-        <path d="M1300 174 H1460" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-        <text x="1380" y="165" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+        <!-- Agenda -> Escopo (seta para cima) -->
+        <path d="M1300 360 V220" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <text x="1308" y="290" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+
+        <!-- Escopo -> CS (retorno lateral para a linha principal) -->
+        <path d="M1330 200 H1540" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
 
         <!-- CS -> Validar -->
-        <path d="M1660 195 H1790" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <path d="M1800 280 H1860 V360" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
 
         <!-- Validar -> Fim -->
-        <path d="M1930 210 H1955" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <path d="M2060 360 H2040 2120" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
 
-        <!-- Agenda -> Escopo (seta pra cima) -->
-        <path d="M1240 174 V120" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <!-- CS -> Spams (seta vertical para cima) -->
+        <path d="M1670 220 V160" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
 
-        <!-- CS -> Spams (seta pra cima, curva) -->
-        <path d="M1660 150 v-36 c0-20 16-32 36-36 l140-22"
-              stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- Escopo -> CS (retorno lateral) -->
-        <path d="M1400 90 v60 h60"
-              stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <!-- Spams -> linha principal antes de Validar (retorno longo pela direita) -->
+        <path d="M1960 140 v140 c0 22 -18 22 -18 22 h-122" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
       </svg>
     </div>
-    <p class="legend">Cada forma é um <strong>link</strong>. Ajuste os destinos nos atributos <code>xlink:href</code> de cada &lt;a&gt;.</p>
   </div>
 </body>
 </html>
