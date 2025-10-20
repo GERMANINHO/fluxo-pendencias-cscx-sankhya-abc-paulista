@@ -1,164 +1,194 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt-br">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fluxograma CS/CX — Sankhya ABC Paulista (SVG idêntico ao print)</title>
+  <title>Fluxo SVG — Arquivo Único</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
+
   <style>
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:#ffffff;font:14px/1.4 system-ui,Segoe UI,Roboto;color:#0f172a}
-    .container{max-width:2700px;margin:24px auto;padding:0 12px}
-    .board{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden}
-    svg{width:100%;height:auto;display:block}
-    .lbl{font:500 16px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
-    .sm{font:500 14px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
-    a:hover [data-stroke]{stroke:#0ea5e9}
-    a:hover [data-fill]{fill:#f8fafc}
+    :root { --bg: #f5f3e7; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: "Open Sans Condensed", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    .wrapper { padding: 50px 100px; }
+
+    .svg-container { 
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      vertical-align: middle; 
+      overflow: hidden; 
+      background: var(--bg);
+    }
+
+    .svg-content { 
+      display: inline-block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .node-label{
+      font-family: "Open Sans Condensed", Arial, sans-serif;
+      font-weight: 900;
+      fill: #f5f3e7;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-size: 10px;
+    }
+    .node-label.sm{ font-size: 9px; }
+    .node-label.xs{ font-size: 8px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="board">
-      <!-- ViewBox mais largo para equalizar espaçamentos como no JPG -->
-      <svg viewBox="0 0 2700 520" xmlns="http://www.w3.org/2000/svg">
+
+  <div class="wrapper">
+    <div class="svg-container">
+      <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" aria-labelledby="title desc" role="img">
+        <title id="title">Fluxograma de Workflow</title>
+        <desc id="desc">Fluxo com início, blocos nomeados e término em três linhas.</desc>
+
         <defs>
-          <!-- Marcador de seta vazada (como no print) -->
-          <marker id="arrow" markerWidth="20" markerHeight="20" refX="12" refY="10" orient="auto">
-            <path d="M2,2 L18,10 L2,18 Z" fill="#fff" stroke="#111" stroke-width="3"/>
+          <marker id="arrow" markerWidth="4" markerHeight="10" viewBox="-2 -4 4 4" refX="0" refY="0" markerUnits="strokeWidth" orient="auto">
+            <polyline points="2,-2 0,0 2,2" stroke="#443c3d" stroke-width="0.75px" fill="none"/>
           </marker>
         </defs>
 
-        <!-- ======== FORMAS ======== -->
-        <!-- Início (elipse) -->
-        <a xlink:href="#inicio">
-          <g>
-            <ellipse cx="160" cy="260" rx="95" ry="68" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="160" y="265" text-anchor="middle">Início</text>
+        <!-- Linha 1 -->
+        <g class="box-group">
+          <g transform="translate(-5)">
+            <circle fill="#000" cx="55" cy="50" r="45" opacity="1" />
+            <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
+                  font-family="Open Sans Condensed" font-size="22" fill="#f5f3e7" font-weight="100"
+                  style="text-transform:uppercase; letter-spacing: 1px">Inicio</text>
+            <line x1="102" x2="135" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           </g>
-        </a>
 
-        <!-- Pendencia (retângulo com cantos) -->
-        <a xlink:href="#pendencia">
-          <g>
-            <rect x="400" y="210" width="260" height="110" rx="14" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="530" y="270" text-anchor="middle">Pendencia</text>
+          <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+
+          <g transform="translate(136)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Pendencia</text>
           </g>
-        </a>
 
-        <!-- Planilha Google (documento com base ondulada, central longo) -->
-        <a xlink:href="#planilha">
-          <g>
-            <path d="M820 170 h900 a14 14 0 0 1 14 14 v180
-                     c-140 44 -280 44 -420 0 s-280 -44 -420 0 v-180
-                     a14 14 0 0 1 14 -14 z"
-                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="sm" x="1270" y="250" text-anchor="middle">
-              <tspan>Planilha Google (Sheets) Carteira ABC PAULISTA</tspan>
+          <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+          
+          <g transform="translate(268)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <tspan x="47" dy="0">Planilha Google</tspan>
+              <tspan x="47" dy="11">(Sheets)</tspan>
+              <tspan x="47" dy="11">Carteira ABC Paulista</tspan>
             </text>
           </g>
-        </a>
 
-        <!-- Agenda Rogerio Furian (trapézio) -->
-        <a xlink:href="#agenda">
-          <g>
-            <path d="M1460 360 l-50 130 h380 l-50 -130 z" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="1600" y="430" text-anchor="middle">
-              <tspan x="1600" dy="0">Agenda Rogerio</tspan>
-              <tspan x="1600" dy="18">Furian</tspan>
+          <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+          
+          <g transform="translate(400)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label sm" x="47" y="45" text-anchor="middle">
+              <tspan x="47" dy="0">Agenda</tspan>
+              <tspan x="47" dy="11">Rogerio Furian</tspan>
             </text>
           </g>
-        </a>
+        </g>
+        
+        <line x1="450" x2="450" y1="77" y2="124" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- Escopo/Plano/Status/Custo/Recurso (retângulo alto com barras laterais) -->
-        <a xlink:href="#escopo">
-          <g>
-            <rect x="1210" y="40" width="300" height="150" rx="16" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <rect x="1230" y="52" width="20" height="126" rx="6" fill="#fff" stroke="#111" stroke-width="3"/>
-            <rect x="1480" y="52" width="20" height="126" rx="6" fill="#fff" stroke="#111" stroke-width="3"/>
-            <text class="sm" x="1360" y="82" text-anchor="middle">
-              <tspan x="1360" dy="0">Escopo/Plano/Status/Custo/</tspan>
-              <tspan x="1360" dy="18">Recurso</tspan>
+        <!-- Linha 2 (ajuste pedidido: inverter Status <-> CS Acompanhamento) -->
+        <g class="box-group" transform="translate(0,100)">
+          <!-- Esquerda: STATUS -->
+          <g transform="translate(5)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Status</text>
+          </g>
+          
+          <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+
+          <!-- Meio-esquerda: CS ACOMPANHAMENTO -->
+          <g transform="translate(136)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label sm" x="47" y="45" text-anchor="middle">
+              <tspan x="47" dy="0">CS</tspan>
+              <tspan x="47" dy="11">Acompanhamento</tspan>
             </text>
           </g>
-        </a>
 
-        <!-- CS Acompanhamento (retângulo) -->
-        <a xlink:href="#cs">
-          <g>
-            <rect x="1980" y="220" width="300" height="130" rx="12" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="2130" y="282" text-anchor="middle">
-              <tspan x="2130" dy="0">CS</tspan>
-              <tspan x="2130" dy="18">Acompanhamento</tspan>
+          <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+          
+          <g transform="translate(268)">
+            <polygon points="60,20 100,40 100,80 60,100 20,80 20,40" fill="#72508d" transform="translate(-12,-10)"/>
+            <rect fill="#72508d" stroke="#72508d" stroke-width="0" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label sm" x="47" y="45" text-anchor="middle" fill="#fff">
+              <tspan x="47" dy="0">Custo/</tspan>
+              <tspan x="47" dy="11">Recurso</tspan>
             </text>
           </g>
-        </a>
 
-        <!-- Spams Cliente/Rogerio Furian / Atualizar Planilha (paralelogramo inclinado) -->
-        <a xlink:href="#spams">
-          <g>
-            <polygon points="1980,40 2440,20 2440,150 1980,170" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="sm" x="2210" y="92" text-anchor="middle">
-              <tspan x="2210" dy="0">Spams Cliente/Rogerio Furian /</tspan>
-              <tspan x="2210" dy="18">Atualizar Planilha</tspan>
+          <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
+          
+          <g transform="translate(400)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label sm" x="47" y="45" text-anchor="middle">
+              <tspan x="47" dy="0">Escopo/Plano</tspan>
+              <tspan x="47" dy="11">de Ação</tspan>
             </text>
           </g>
-        </a>
+        </g>
+        
+        <line x1="50" x2="50" y1="177" y2="224" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- Validar Entrega (losango) -->
-        <a xlink:href="#validar">
-          <g>
-            <polygon points="2520,300 2620,360 2520,420 2420,360" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="2520" y="366" text-anchor="middle">
-              <tspan x="2520" dy="0">Validar</tspan>
-              <tspan x="2520" dy="18">Entrega</tspan>
+        <!-- Linha 3 -->
+        <g class="box-group" transform="translate(0,200)">
+          <g transform="translate(5)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <tspan x="47" dy="0">Spams Cliente</tspan>
+              <tspan x="47" dy="11">/ Rogerio</tspan>
+              <tspan x="47" dy="11">Furian</tspan>
             </text>
           </g>
-        </a>
+          
+          <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- Fim (elipse) -->
-        <a xlink:href="#fim">
-          <g>
-            <ellipse cx="2660" cy="360" rx="85" ry="65" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
-            <text class="lbl" x="2660" y="366" text-anchor="middle">Fim</text>
+          <g transform="translate(136)">
+            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label" x="47" y="45" text-anchor="middle">
+              <tspan x="47" dy="0">Validar</tspan>
+              <tspan x="47" dy="11">Entrega</tspan>
+            </text>
           </g>
-        </a>
 
-        <!-- ======== SETAS ======== -->
-        <!-- Início -> Pendencia -->
-        <path d="M255 260 H400" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- Pendencia -> Planilha (com '>>>') -->
-        <path d="M660 265 H820" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-        <text x="740" y="252" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
-
-        <!-- Planilha -> CS (saída à direita) -->
-        <path d="M1720 260 H1980" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- Agenda -> Escopo (seta para cima) -->
-        <path d="M1600 360 V200" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-        <text x="1608" y="290" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
-
-        <!-- Planilha -> Agenda (seta descendente) -->
-        <path d="M1400 260 V360" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-        <text x="1410" y="300" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
-
-        <!-- Escopo -> CS (retorno lateral para a linha principal) -->
-        <path d="M1510 200 H1980" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- CS -> Validar -->
-        <path d="M2280 285 H2420" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- Validar -> Fim -->
-        <path d="M2620 360 H2660" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- CS -> Spams (seta vertical para cima) -->
-        <path d="M2130 220 V160" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-
-        <!-- Spams -> linha principal antes de Validar (retorno longo pela direita) -->
-        <path d="M2440 150 v120 c0 24 -20 24 -20 24 h-140" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+          <!-- ligação direta ao FIM -->
+          <line x1="230" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+          
+          <g transform="translate(392)">
+            <circle fill="#000" cx="55" cy="50" r="45" opacity="1" />
+            <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
+                  font-family="Open Sans Condensed" font-size="22" fill="#f5f3e7" font-weight="100"
+                  style="text-transform:uppercase; letter-spacing: 1px">Fim</text>
+          </g>
+        </g>
       </svg>
     </div>
   </div>
+
+  <script>
+    var svg = document.getElementsByTagName("svg");
+    var rect = document.getElementsByTagName("rect");
+
+    var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', '10');
+    text.setAttribute('y', '20');
+    text.setAttribute('fill', '#000');
+    text.textContent = 'Hello, I am a blah blah blah blah blah';
+    // svg[0].appendChild(text);
+  </script>
 </body>
 </html>
