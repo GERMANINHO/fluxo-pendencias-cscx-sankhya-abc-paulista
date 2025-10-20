@@ -1,136 +1,157 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fluxograma CS/CX — Versão "Idêntica à Imagem"</title>
-  <meta name="description" content="HTML que reproduz visualmente a imagem do fluxograma e adiciona áreas clicáveis sobre cada etapa." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fluxograma CS/CX — Sankhya ABC Paulista (SVG)</title>
   <style>
-    :root {
-      --hint: 0; /* 0 = invisível (produção), 1 = mostrar contornos e rótulos para alinhar */
-      --accent: #19e4c4;
-      --stroke: rgba(25, 228, 196, .35);
-      --label-bg: rgba(0,0,0,.65);
+    :root{
+      --bg:#0b0d12; --ink:#111; --stroke:#333; --line:#111; --shape:#fff; --text:#111;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; background: #0b0d12; color: #e8ecf1; font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
-      display: grid; place-items: start center; padding: 16px;
-    }
-    .wrap { width: min(1200px, 96vw); position: relative; }
-
-    /* A imagem é o que dá a aparência 100% idêntica. */
-    .board { position: relative; width: 100%; }
-    .board img { width: 100%; height: auto; display: block; border-radius: 8px; }
-
-    /* Overlay com hotspots em porcentagem (responsivo). */
-    .hotspot { position: absolute; display: block; text-decoration: none; }
-
-    /* Modo "debug" para alinhar — ligue no botão abaixo. */
-    .hotspot::before {
-      content: attr(data-label);
-      position: absolute; inset: 0; display: grid; place-items: center;
-      font-weight: 600; font-size: 12px; letter-spacing: .2px; text-align: center; padding: 4px;
-      color: white; border: 2px dashed var(--stroke); border-radius: 8px; background: var(--label-bg);
-      opacity: calc(var(--hint));
-    }
-    .hotspot:focus-visible { outline: 3px solid var(--accent); border-radius: 8px; }
-
-    .controls { margin: 10px 0 0; display: flex; gap: 10px; align-items: center; color: #9aa3b2; }
-    .controls button { padding: 8px 10px; border-radius: 8px; border: 1px solid #1e2633; background: #11141b; color: #e8ecf1; cursor: pointer; }
-    .controls code { background: #11141b; padding: 2px 6px; border-radius: 6px; border: 1px solid #1e2633; color: #9aa3b2; }
-
-    .legend { margin-top: 8px; color: #9aa3b2; font-size: 12px; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:#f7f7f7;font:14px/1.4 system-ui,Segoe UI,Roboto}
+    .wrap{max-width:1200px;margin:24px auto;padding:8px 16px;background:var(--bg);border-radius:14px}
+    .board{background:#fff;border-radius:12px;box-shadow:0 1px 12px rgba(0,0,0,.12);overflow:hidden}
+    .legend{color:#cbd5e1;font-size:12px;margin:8px 2px}
+    svg{width:100%;height:auto;display:block}
+    a:hover [data-stroke]{stroke:#0ea5e9}
+    a:hover [data-fill]{fill:#eef6ff}
+    .lbl{font:500 14px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
+    .small{font:500 12px/1.25 system-ui,Segoe UI,Roboto; fill:#111}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="board" id="board">
-      <!-- Substitua o src abaixo se o arquivo tiver outro nome ou pasta -->
-      <img id="diagram" src="assets/Fluxograma Processo CSCX Sankhya ABC Paulista.jpg" alt="Fluxograma CS/CX — Sankhya ABC Paulista" />
-      <!-- Hotspots serão inseridos via JS a partir do array NODES -->
-    </div>
+    <div class="board">
+      <!-- ViewBox usa proporção próxima à sua imagem (2048x348) para ficar fiel -->
+      <svg viewBox="0 0 2048 348" xmlns="http://www.w3.org/2000/svg">
+        <!-- Marcadores de seta -->
+        <defs>
+          <marker id="arrow" markerWidth="18" markerHeight="18" refX="12" refY="6" orient="auto">
+            <path d="M0,0 L12,6 L0,12 Z" fill="#111"/>
+          </marker>
+        </defs>
 
-    <div class="controls">
-      <button id="toggleDebug" type="button">Mostrar/ocultar contornos</button>
-      <span>Atalhos: <code>Ctrl/⌘ + =</code> aumenta borda • <code>Ctrl/⌘ + -</code> diminui</span>
+        <!-- ======== FORMAS ======== -->
+        <!-- Início (elipse) -->
+        <a xlink:href="#inicio" target="_self">
+          <g>
+            <ellipse cx="120" cy="174" rx="90" ry="60" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="120" y="179" text-anchor="middle">Inicio</text>
+          </g>
+        </a>
+
+        <!-- Pendencia (retângulo com cantos) -->
+        <a xlink:href="#pendencia">
+          <g>
+            <rect x="320" y="128" width="170" height="95" rx="12" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="405" y="184" text-anchor="middle">Pendencia</text>
+          </g>
+        </a>
+
+        <!-- Google Sheets (documento com base ondulada) -->
+        <a xlink:href="#sheets">
+          <g>
+            <path d="M620 128 h360 a12 12 0 0 1 12 12 v56
+                     c-60 20 -120 20 -180 0 s-120 -20 -180 0 v-56
+                     a12 12 0 0 1 12 -12 z"
+                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="small" x="800" y="170" text-anchor="middle">Google (Sheets) Carteira ABC PAULISTA</text>
+          </g>
+        </a>
+
+        <!-- Agenda Rogerio Furian (trapézio) -->
+        <a xlink:href="#agenda">
+          <g>
+            <path d="M1120 208 l-30 80 h240 l-30 -80 z"
+                  transform="translate(0,-100)"
+                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1240" y="184" text-anchor="middle">Agenda Rogerio<br/>Furian</text>
+          </g>
+        </a>
+
+        <!-- Escopo/Plano/Status/Custo/Recurso (retângulo alto com cantos) -->
+        <a xlink:href="#escopo">
+          <g>
+            <rect x="1180" y="36" width="220" height="110" rx="14"
+                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="small" x="1290" y="70" text-anchor="middle">Escopo/Plano/Status/Custo/Recurso</text>
+          </g>
+        </a>
+
+        <!-- CS Acompanhamento (retângulo) -->
+        <a xlink:href="#cs">
+          <g>
+            <rect x="1460" y="150" width="200" height="90" rx="10"
+                  data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1560" y="200" text-anchor="middle">CS<br/>Acompanhamento</text>
+          </g>
+        </a>
+
+        <!-- Spams Cliente/Rogerio... (paralelogramo inclinado) -->
+        <a xlink:href="#spams">
+          <g>
+            <polygon points="1600,34 1840,20 1840,120 1600,134"
+                     data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="small" x="1720" y="70" text-anchor="middle">
+              Spams Cliente/Rogerio Furian/ Atualizar Planilha
+            </text>
+          </g>
+        </a>
+
+        <!-- Validar Entrega (losango) -->
+        <a xlink:href="#validar">
+          <g>
+            <polygon points="1860,170 1930,210 1860,250 1790,210"
+                     data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1860" y="213" text-anchor="middle">Validar<br/>Entrega</text>
+          </g>
+        </a>
+
+        <!-- Fim (elipse) -->
+        <a xlink:href="#fim">
+          <g>
+            <ellipse cx="1980" cy="210" rx="60" ry="46" data-fill fill="#fff" data-stroke stroke="#111" stroke-width="3"/>
+            <text class="lbl" x="1980" y="215" text-anchor="middle">Fim</text>
+          </g>
+        </a>
+
+        <!-- ======== SETAS ======== -->
+        <!-- Inicio -> Pendencia -->
+        <path d="M210 174 H320" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- Pendencia -> Sheets (com '>>>') -->
+        <path d="M490 174 H610" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <text x="560" y="165" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+
+        <!-- Sheets -> Agenda -->
+        <path d="M980 174 H1090" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <text x="1040" y="165" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+
+        <!-- Agenda -> CS -->
+        <path d="M1300 174 H1460" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+        <text x="1380" y="165" fill="#111" font-weight="700">&gt;&gt;&gt;</text>
+
+        <!-- CS -> Validar -->
+        <path d="M1660 195 H1790" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- Validar -> Fim -->
+        <path d="M1930 210 H1955" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- Agenda -> Escopo (seta pra cima) -->
+        <path d="M1240 174 V120" stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- CS -> Spams (seta pra cima, curva) -->
+        <path d="M1660 150 v-36 c0-20 16-32 36-36 l140-22"
+              stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+        <!-- Escopo -> CS (retorno lateral) -->
+        <path d="M1400 90 v60 h60"
+              stroke="#111" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+      </svg>
     </div>
-    <div class="legend">Este modo reproduz <strong>literalmente a imagem</strong> e adiciona áreas clicáveis posicionadas por <em>porcentagem</em> (responsivo). Ajuste as coordenadas no array <code>NODES</code>.</div>
+    <p class="legend">Cada forma é um <strong>link</strong>. Ajuste os destinos nos atributos <code>xlink:href</code> de cada &lt;a&gt;.</p>
   </div>
-
-  <script>
-    /*
-      === COMO FUNCIONA ===
-      1) A imagem do fluxograma fica como "fundo visual" (img).
-      2) Definimos hotspots (retângulos) com posições em PORCENTAGEM
-         relativas à imagem: { left, top, width, height } em %.
-      3) Cada hotspot recebe um data-label (texto do quadrado) só para debug.
-      4) Em produção, os hotspots ficam invisíveis; a página é idêntica à imagem.
-      5) Use o botão "Mostrar/ocultar contornos" para alinhar os retângulos.
-
-      DICA: Para obter as porcentagens, abra o site, ligue os contornos e ajuste
-      os valores abaixo rapidamente (commit no GitHub) até casar 100%.
-    */
-
-    // === 1) LISTA DE HOTSPOTS (exemplo; ajuste para o seu desenho) ===
-    // Os nomes aqui devem bater com os quadradinhos da imagem.
-    const NODES = [
-      // Exemplo de coordenadas. Troque pelos seus valores.
-      { label: 'Captação e Entrada', left: 4.2, top: 9.8, width: 18.5, height: 7.2, href: '#captacao' },
-      { label: 'Qualificação',       left: 28.0, top: 9.8, width: 18.5, height: 7.2, href: '#qualificacao' },
-      { label: 'Proposta',           left: 51.5, top: 9.8, width: 18.5, height: 7.2, href: '#proposta' },
-      { label: 'Fechamento',         left: 75.0, top: 9.8, width: 18.5, height: 7.2, href: '#fechamento' },
-
-      { label: 'Onboarding',         left: 4.2,  top: 30.5, width: 18.5, height: 7.2, href: '#onboarding' },
-      { label: 'Suporte & Operação', left: 28.0, top: 30.5, width: 18.5, height: 7.2, href: '#suporte' },
-      { label: 'Saúde do Cliente',   left: 51.5, top: 30.5, width: 18.5, height: 7.2, href: '#saude' },
-      { label: 'Expansão',           left: 75.0, top: 30.5, width: 18.5, height: 7.2, href: '#expansao' },
-
-      { label: 'NPS & Feedback',     left: 28.0, top: 51.0, width: 18.5, height: 7.2, href: '#feedback' },
-      // Adicione quantos precisar…
-    ];
-
-    // === 2) RENDERIZA OS HOTSPOTS SOBRE A IMAGEM ===
-    const board = document.getElementById('board');
-
-    NODES.forEach((n) => {
-      const a = document.createElement('a');
-      a.className = 'hotspot';
-      a.href = n.href || '#';
-      a.style.left   = n.left   + '%';
-      a.style.top    = n.top    + '%';
-      a.style.width  = n.width  + '%';
-      a.style.height = n.height + '%';
-      a.setAttribute('data-label', n.label || '');
-      a.setAttribute('title', n.label || '');
-      a.target = /^(http|https)/.test(n.href||'') ? '_blank' : '';
-      board.appendChild(a);
-    });
-
-    // === 3) CONTROLES DE DEBUG (mostrar contornos e rótulos) ===
-    let debugOn = false;
-    const root = document.documentElement;
-    const btn = document.getElementById('toggleDebug');
-
-    function setDebug(v){ debugOn = v; root.style.setProperty('--hint', v ? 1 : 0); }
-    btn.addEventListener('click', () => setDebug(!debugOn));
-
-    // atalhos para ajustar espessura (apenas visual)
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '+')) {
-        e.preventDefault();
-        const cur = getComputedStyle(root).getPropertyValue('--stroke');
-        setDebug(true);
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key === '-') {
-        e.preventDefault();
-        setDebug(false);
-      }
-    });
-
-    // Começa oculto (modo produção — idêntico à imagem)
-    setDebug(false);
-  </script>
 </body>
 </html>
