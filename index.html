@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fluxo SVG — Arquivo Único</title>
+  <title>Fluxo SVG — Pulse em todas as caixas</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
 
   <style>
-    :root { --bg: #f5f3e7; }
+    :root {
+      --bg: #f5f3e7;
+      --pulse: #ef6eae;
+      --pulse-hover: #f699d1;
+    }
 
     body {
       margin: 0;
@@ -41,9 +45,39 @@
       text-transform: uppercase;
       letter-spacing: .5px;
       font-size: 10px;
+      pointer-events: none;
     }
     .node-label.sm{ font-size: 9px; }
     .node-label.xs{ font-size: 8px; }
+
+    /* PULSE */
+    .node { cursor: pointer; outline: none; }
+    .node rect.main, .node polygon.main { transition: filter .25s ease; }
+    .node:hover rect.main, .node:focus rect.main,
+    .node:hover polygon.main, .node:focus polygon.main {
+      filter: brightness(1.06) saturate(1.02);
+    }
+
+    .pulse-ring {
+      fill: none;
+      stroke: var(--pulse-hover);
+      stroke-width: 0;
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      pointer-events: none;
+    }
+
+    .node:hover .pulse-ring,
+    .node:focus .pulse-ring {
+      animation: pulseRing 1s ease-out;
+    }
+
+    @keyframes pulseRing {
+      0%   { opacity: .75; stroke-width: 6;  transform: scale(1); }
+      70%  { opacity: .35; stroke-width: 14; transform: scale(1.25); }
+      100% { opacity: 0;   stroke-width: 18; transform: scale(1.35); }
+    }
   </style>
 </head>
 <body>
@@ -51,8 +85,8 @@
   <div class="wrapper">
     <div class="svg-container">
       <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" aria-labelledby="title desc" role="img">
-        <title id="title">Fluxograma de Workflow</title>
-        <desc id="desc">Fluxo com início, blocos nomeados e término em três linhas.</desc>
+        <title id="title">Fluxograma com efeito Pulse</title>
+        <desc id="desc">Fluxo com início, nove etapas e término. Todas as caixas têm efeito pulse ao passar o mouse.</desc>
 
         <defs>
           <marker id="arrow" markerWidth="4" markerHeight="10" viewBox="-2 -4 4 4" refX="0" refY="0" markerUnits="strokeWidth" orient="auto">
@@ -72,15 +106,19 @@
 
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <g transform="translate(136)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 1 -->
+          <g class="node" tabindex="0" transform="translate(136)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Pendencia</text>
           </g>
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <g transform="translate(268)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 2 -->
+          <g class="node" tabindex="0" transform="translate(268)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
               <tspan x="47" dy="0">Planilha Google</tspan>
               <tspan x="47" dy="11">(Sheets)</tspan>
@@ -90,8 +128,10 @@
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <g transform="translate(400)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 3 -->
+          <g class="node" tabindex="0" transform="translate(400)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label sm" x="47" y="45" text-anchor="middle">
               <tspan x="47" dy="0">Agenda</tspan>
               <tspan x="47" dy="11">Rogerio Furian</tspan>
@@ -101,19 +141,21 @@
         
         <line x1="450" x2="450" y1="77" y2="124" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- Linha 2 (ajuste pedidido: inverter Status <-> CS Acompanhamento) -->
+        <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
-          <!-- Esquerda: STATUS -->
-          <g transform="translate(5)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 4 -->
+          <g class="node" tabindex="0" transform="translate(5)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Status</text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Meio-esquerda: CS ACOMPANHAMENTO -->
-          <g transform="translate(136)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 5 -->
+          <g class="node" tabindex="0" transform="translate(136)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label sm" x="47" y="45" text-anchor="middle">
               <tspan x="47" dy="0">CS</tspan>
               <tspan x="47" dy="11">Acompanhamento</tspan>
@@ -122,9 +164,16 @@
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <g transform="translate(268)">
-            <polygon points="60,20 100,40 100,80 60,100 20,80 20,40" fill="#72508d" transform="translate(-12,-10)"/>
-            <rect fill="#72508d" stroke="#72508d" stroke-width="0" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 6 (Custo/Recurso) — FIX: anel de pulso retangular alinhado -->
+          <g class="node" tabindex="0" transform="translate(268)">
+            <!-- anel de pulso alinhado ao retângulo -->
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <!-- forma decorativa (losango) ao fundo -->
+            <polygon class="main" points="60,20 100,40 100,80 60,100 20,80 20,40"
+                     fill="#72508d" transform="translate(-12,-10)"/>
+            <!-- retângulo principal -->
+            <rect class="main" fill="#72508d" stroke="#72508d" stroke-width="0"
+                  x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label sm" x="47" y="45" text-anchor="middle" fill="#fff">
               <tspan x="47" dy="0">Custo/</tspan>
               <tspan x="47" dy="11">Recurso</tspan>
@@ -133,8 +182,10 @@
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
           
-          <g transform="translate(400)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 7 -->
+          <g class="node" tabindex="0" transform="translate(400)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label sm" x="47" y="45" text-anchor="middle">
               <tspan x="47" dy="0">Escopo/Plano</tspan>
               <tspan x="47" dy="11">de Ação</tspan>
@@ -146,8 +197,10 @@
 
         <!-- Linha 3 -->
         <g class="box-group" transform="translate(0,200)">
-          <g transform="translate(5)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 8 -->
+          <g class="node" tabindex="0" transform="translate(5)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
               <tspan x="47" dy="0">Spams Cliente</tspan>
               <tspan x="47" dy="11">/ Rogerio</tspan>
@@ -157,15 +210,16 @@
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <g transform="translate(136)">
-            <rect fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+          <!-- Nó 9 -->
+          <g class="node" tabindex="0" transform="translate(136)">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label" x="47" y="45" text-anchor="middle">
               <tspan x="47" dy="0">Validar</tspan>
               <tspan x="47" dy="11">Entrega</tspan>
             </text>
           </g>
 
-          <!-- ligação direta ao FIM -->
           <line x1="230" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
           <g transform="translate(392)">
@@ -178,17 +232,5 @@
       </svg>
     </div>
   </div>
-
-  <script>
-    var svg = document.getElementsByTagName("svg");
-    var rect = document.getElementsByTagName("rect");
-
-    var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    text.setAttribute('x', '10');
-    text.setAttribute('y', '20');
-    text.setAttribute('fill', '#000');
-    text.textContent = 'Hello, I am a blah blah blah blah blah';
-    // svg[0].appendChild(text);
-  </script>
 </body>
 </html>
