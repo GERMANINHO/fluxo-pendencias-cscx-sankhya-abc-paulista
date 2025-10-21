@@ -3,20 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fluxo SVG — Pulse em todas as caixas</title>
+  <title>Fluxo - Pendencias - CS/CX - Sankhya ABC Paulista</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #f5f3e7;
+      --text: #443c3d;
+      --green: #66cc00;
+      --purple: #72508d;
       --pulse: #ef6eae;
       --pulse-hover: #f699d1;
+
+      --modal-bg: #ffffff;
+      --overlay: rgba(0,0,0,.45);
+      --btn-bg: #0f172a0f; /* leve */
+      --btn-border: #cbd5e1;
+      --btn-hover: #0f172a14;
+      --btn-text: #0f172a;
     }
 
     body {
       margin: 0;
       background: var(--bg);
+      color: var(--text);
       font-family: "Open Sans Condensed", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
 
@@ -45,12 +56,12 @@
       text-transform: uppercase;
       letter-spacing: .5px;
       font-size: 10px;
-      pointer-events: none;
+      pointer-events: none; /* clique passa para o grupo do nó */
     }
     .node-label.sm{ font-size: 9px; }
     .node-label.xs{ font-size: 8px; }
 
-    /* PULSE */
+    /* PULSE (adaptado para SVG) */
     .node { cursor: pointer; outline: none; }
     .node rect.main, .node polygon.main { transition: filter .25s ease; }
     .node:hover rect.main, .node:focus rect.main,
@@ -78,6 +89,95 @@
       70%  { opacity: .35; stroke-width: 14; transform: scale(1.25); }
       100% { opacity: 0;   stroke-width: 18; transform: scale(1.35); }
     }
+
+    /* ===== Modal (popup) ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: var(--overlay);
+      z-index: 999;
+    }
+    .modal.open { display: flex; }
+
+    .modal__panel {
+      background: var(--modal-bg);
+      color: var(--text);
+      width: min(92vw, 540px);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+      padding: 20px 20px 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .modal__title {
+      margin: 0;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .modal__close {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      font-size: 20px;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--btn-text);
+    }
+    .modal__close:hover { background: #0000000d; }
+
+    .modal__body { padding: 8px 2px 0; }
+
+    .modal__actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      transition: background .2s ease, box-shadow .2s ease, transform .06s ease;
+    }
+    .btn:hover, .btn:focus {
+      background: var(--btn-hover);
+      box-shadow: 0 0 0 2px #00000010 inset;
+    }
+    .btn:active { transform: translateY(1px); }
+
+    .btn--green { border-color: #86efac; }
+    .btn--purple { border-color: #d8b4fe; }
+
+    .modal__hint {
+      margin: 6px 2px 0;
+      font-size: 12px;
+      opacity: .75;
+    }
+
+    @media (min-width: 540px) {
+      .modal__actions { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -88,8 +188,8 @@
       <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet"
            class="svg-content" aria-labelledby="title desc" role="img"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title id="title">Fluxograma com efeito Pulse</title>
-        <desc id="desc">Fluxo com início, nove etapas e término. Todas as caixas têm efeito pulse ao passar o mouse.</desc>
+        <title id="title">Fluxograma do Processo de Pendencia CS/CX</title>
+        <desc id="desc">Fluxo com início, nove etapas e término.</desc>
 
         <defs>
           <marker id="arrow" markerWidth="4" markerHeight="10" viewBox="-2 -4 4 4" refX="0" refY="0" markerUnits="strokeWidth" orient="auto">
@@ -109,17 +209,11 @@
 
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 1 (com LINK para Pendencias) -->
-          <g class="node" tabindex="0" transform="translate(136)">
-            <a class="node-link"
-               href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
-               xlink:href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
-               target="_blank" rel="noopener noreferrer">
-              <title>Abrir Pendencias (Google Docs)</title>
-              <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Pendencia</text>
-            </a>
+          <!-- Nó 1 (Pendencia) → abre modal específico de Pendencias -->
+          <g class="node" tabindex="0" id="node-pendencia" transform="translate(136)" role="button" aria-label="Abrir opções de Pendencias">
+            <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Pendencia</text>
           </g>
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
@@ -200,8 +294,8 @@
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
           
-          <!-- Nó 7 -->
-          <g class="node" tabindex="0" transform="translate(400)">
+          <!-- Nó 7 (Escopo/Plano de Ação) → abre modal específico do Escopo -->
+          <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir opções de Escopo/Plano de Ação">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label sm" x="47" y="45" text-anchor="middle">
@@ -250,5 +344,147 @@
       </svg>
     </div>
   </div>
+
+  <!-- Modal de opções para "Pendencia" -->
+  <div class="modal" id="modal-pendencias" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-title">
+    <div class="modal__panel" role="document">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-pendencias-title">Abrir Pendencias</h2>
+        <button class="modal__close" type="button" id="modal-close-pend" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal__body">
+        <p>Escolha qual documento deseja abrir:</p>
+        <div class="modal__actions">
+          <a id="link-pend-a-s"
+             class="btn btn--green"
+             href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
+             target="_blank" rel="noopener noreferrer">
+            Pendencias A até S
+          </a>
+          <a id="link-pend-s-z"
+             class="btn btn--purple"
+             href="https://docs.google.com/document/d/1WittatrWZPUu4krjjHGSvu8bM2XbeDxr4fZ7_riRtWc/edit?tab=t.0"
+             target="_blank" rel="noopener noreferrer">
+            Pendencias S até Z
+          </a>
+        </div>
+        <div class="modal__hint">Dica: você pode fechar com <strong>Esc</strong> ou clicando fora do painel.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal específico para "Escopo/Plano de Ação" -->
+  <div class="modal" id="modal-escopo" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-escopo-title">
+    <div class="modal__panel" role="document">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-escopo-title">Abrir Escopo/Plano de Ação</h2>
+        <button class="modal__close" type="button" id="modal-close-escopo" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal__body">
+        <p>Escolha qual documento deseja abrir:</p>
+        <div class="modal__actions">
+          <a id="link-escopo-a-s"
+             class="btn btn--green"
+             href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
+             target="_blank" rel="noopener noreferrer">
+            Escopo/Plano de Ação "A até S"
+          </a>
+          <a id="link-escopo-s-z"
+             class="btn btn--purple"
+             href="https://docs.google.com/document/d/1WittatrWZPUu4krjjHGSvu8bM2XbeDxr4fZ7_riRtWc/edit?tab=t.0"
+             target="_blank" rel="noopener noreferrer">
+            Escopo/Plano de Ação "S até Z"
+          </a>
+        </div>
+        <div class="modal__hint">Dica: você pode fechar com <strong>Esc</strong> ou clicando fora do painel.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==== Modal logic (abrir/fechar) ====
+    (function () {
+      const nodePendencia = document.getElementById('node-pendencia');
+      const nodeEscopo    = document.getElementById('node-escopo');
+
+      const modalPend     = document.getElementById('modal-pendencias');
+      const modalEscopo   = document.getElementById('modal-escopo');
+
+      const btnClosePend  = document.getElementById('modal-close-pend');
+      const btnCloseEsc   = document.getElementById('modal-close-escopo');
+
+      const firstChoicePend  = document.getElementById('link-pend-a-s');
+      const firstChoiceEsc   = document.getElementById('link-escopo-a-s');
+
+      let lastTrigger = null;
+
+      function openModal(modalEl, focusEl, returnFocusEl) {
+        lastTrigger = returnFocusEl || null;
+        modalEl.classList.add('open');
+        modalEl.setAttribute('aria-hidden', 'false');
+        // foco no primeiro botão da modal
+        setTimeout(() => focusEl && focusEl.focus(), 0);
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(modalEl) {
+        modalEl.classList.remove('open');
+        modalEl.setAttribute('aria-hidden', 'true');
+        if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      // Abrir Pendencias
+      if (nodePendencia) {
+        nodePendencia.addEventListener('click', () => openModal(modalPend, firstChoicePend, nodePendencia));
+        nodePendencia.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(modalPend, firstChoicePend, nodePendencia);
+          }
+        });
+      }
+
+      // Abrir Escopo/Plano de Ação
+      if (nodeEscopo) {
+        nodeEscopo.addEventListener('click', () => openModal(modalEscopo, firstChoiceEsc, nodeEscopo));
+        nodeEscopo.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(modalEscopo, firstChoiceEsc, nodeEscopo);
+          }
+        });
+      }
+
+      // Fechar por botões X
+      btnClosePend && btnClosePend.addEventListener('click', () => closeModal(modalPend));
+      btnCloseEsc  && btnCloseEsc .addEventListener('click', () => closeModal(modalEscopo));
+
+      // Fechar por clique fora do painel
+      [modalPend, modalEscopo].forEach(m => {
+        m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
+      });
+
+      // Fechar por ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (modalPend.classList.contains('open'))  closeModal(modalPend);
+          if (modalEscopo.classList.contains('open')) closeModal(modalEscopo);
+        }
+      });
+
+      // Ao clicar nas opções (abre nova aba), fechamos a modal atual:
+      ['link-pend-a-s','link-pend-s-z'].forEach(id => {
+        const el = document.getElementById(id);
+        el && el.addEventListener('click', () => closeModal(modalPend));
+      });
+      ['link-escopo-a-s','link-escopo-s-z'].forEach(id => {
+        const el = document.getElementById(id);
+        el && el.addEventListener('click', () => closeModal(modalEscopo));
+      });
+    })();
+  </script>
 </body>
 </html>
