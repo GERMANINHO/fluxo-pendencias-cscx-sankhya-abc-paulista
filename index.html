@@ -83,7 +83,6 @@
     .btn--green { border-color:#86efac; }
     .btn--purple { border-color:#d8b4fe; }
     .modal__hint { margin:6px 2px 0; font-size:12px; opacity:.75; }
-    @media (min-width:540px){ .modal__actions{ grid-template-columns:1fr 1fr; } }
   </style>
 </head>
 <body>
@@ -114,8 +113,8 @@
 
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 1 (Pendencia) → modal de Pendencias -->
-          <g class="node" tabindex="0" id="node-pendencia" transform="translate(136)" role="button" aria-label="Abrir opções de Pendencias">
+          <!-- Nó 1 (Triagem) → abre modal com instrução + botão -->
+          <g class="node" tabindex="0" id="node-pendencia" transform="translate(136)" role="button" aria-label="Instruções de Triagem e Registro">
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
               <tspan x="47" dy="0">Triagem e registro</tspan>
@@ -147,8 +146,8 @@
           
           <!-- Nó 3 (Agenda) -->
           <g class="node" tabindex="0" transform="translate(400)">
-            <a class="node-link
-               " href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
+            <a class="node-link"
+               href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
                xlink:href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
                target="_blank" rel="noopener noreferrer">
               <title>Agendamento/coordenação de agenda com o Rogerio Furian</title>
@@ -208,7 +207,7 @@
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
           
-          <!-- Nó 7 (Escopo/Plano de Ação) -->
+          <!-- Nó 7 (Escopo/Plano de Ação) → modal do Escopo -->
           <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir opções de Escopo/Plano de Ação">
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xxs" x="47" y="36" text-anchor="middle">
@@ -266,24 +265,30 @@
     </div>
   </div>
 
-  <!-- Modal Pendências -->
+  <!-- Modal TRIAGEM (antes era "Pendencias") -->
   <div class="modal" id="modal-pendencias" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
-        <h2 class="modal__title" id="modal-pendencias-title">Abrir Pendencias</h2>
+        <h2 class="modal__title" id="modal-pendencias-title">Triagem e registro das demandas</h2>
         <button class="modal__close" type="button" id="modal-close-pend" aria-label="Fechar">✕</button>
       </div>
       <div class="modal__body">
-        <p>Escolha qual documento deseja abrir:</p>
+        <p>
+          Ao clicar no botão abaixo, você abrirá a
+          <strong>Carteira ABC Paulista</strong> (Google Sheets).
+          Na planilha, <strong>escolha a empresa</strong> com a qual vai trabalhar e,
+          na <strong>aba “Pendencias”</strong> da planilha dessa empresa,
+          registre/atualize as demandas para dar andamento a este processo.
+        </p>
         <div class="modal__actions">
-          <a id="link-pend-a-s" class="btn btn--green"
-             href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">Pendencias "A até S"</a>
-          <a id="link-pend-s-z" class="btn btn--purple"
-             href="https://docs.google.com/document/d/1WittatrWZPUu4krjjHGSvu8bM2XbeDxr4fZ7_riRtWc/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">Pendencias "S até Z"</a>
+          <a id="link-triagem-carteira"
+             class="btn btn--green"
+             href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=292230500#gid=292230500"
+             target="_blank" rel="noopener noreferrer">
+            Planilha Carteira ABC Paulista
+          </a>
         </div>
-        <div class="modal__hint">Dica: você pode fechar com <strong>Esc</strong> ou clicando fora do painel.</div>
+        <div class="modal__hint">Dúvidas? Verifique se está logado na conta com acesso à planilha.</div>
       </div>
     </div>
   </div>
@@ -298,12 +303,18 @@
       <div class="modal__body">
         <p>Escolha qual documento deseja abrir:</p>
         <div class="modal__actions">
-          <a id="link-escopo-a-s" class="btn btn--green"
+          <a id="link-escopo-a-s"
+             class="btn btn--green"
              href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">Escopo/Plano de Ação "A até S"</a>
-          <a id="link-escopo-s-z" class="btn btn--purple"
+             target="_blank" rel="noopener noreferrer">
+            Escopo/Plano de Ação "A até S"
+          </a>
+          <a id="link-escopo-s-z"
+             class="btn btn--purple"
              href="https://docs.google.com/document/d/1WittatrWZPUu4krjjHGSvu8bM2XbeDxr4fZ7_riRtWc/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">Escopo/Plano de Ação "S até Z"</a>
+             target="_blank" rel="noopener noreferrer">
+            Escopo/Plano de Ação "S até Z"
+          </a>
         </div>
         <div class="modal__hint">Dica: você pode fechar com <strong>Esc</strong> ou clicando fora do painel.</div>
       </div>
@@ -322,7 +333,7 @@
       const btnClosePend  = document.getElementById('modal-close-pend');
       const btnCloseEsc   = document.getElementById('modal-close-escopo');
 
-      const firstChoicePend  = document.getElementById('link-pend-a-s');
+      const firstChoicePend  = document.getElementById('link-triagem-carteira'); // novo foco
       const firstChoiceEsc   = document.getElementById('link-escopo-a-s');
 
       let lastTrigger = null;
@@ -378,10 +389,10 @@
         }
       });
 
-      ['link-pend-a-s','link-pend-s-z'].forEach(id => {
-        const el = document.getElementById(id);
-        el && el.addEventListener('click', () => closeModal(modalPend));
-      });
+      // fecha modal ao clicar no botão de ação
+      const triagemBtn = document.getElementById('link-triagem-carteira');
+      triagemBtn && triagemBtn.addEventListener('click', () => closeModal(modalPend));
+
       ['link-escopo-a-s','link-escopo-s-z'].forEach(id => {
         const el = document.getElementById(id);
         el && el.addEventListener('click', () => closeModal(modalEscopo));
