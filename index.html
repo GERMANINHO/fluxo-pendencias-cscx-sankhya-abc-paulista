@@ -18,7 +18,7 @@
 
       --modal-bg: #ffffff;
       --overlay: rgba(0,0,0,.45);
-      --btn-bg: #0f172a0f; /* leve */
+      --btn-bg: #0f172a0f;
       --btn-border: #cbd5e1;
       --btn-hover: #0f172a14;
       --btn-text: #0f172a;
@@ -56,12 +56,11 @@
       text-transform: uppercase;
       letter-spacing: .5px;
       font-size: 10px;
-      pointer-events: none; /* clique passa para o grupo do nó */
+      pointer-events: none;
     }
     .node-label.sm{ font-size: 9px; }
     .node-label.xs{ font-size: 8px; }
 
-    /* PULSE (adaptado para SVG) */
     .node { cursor: pointer; outline: none; }
     .node rect.main, .node polygon.main { transition: filter .25s ease; }
     .node:hover rect.main, .node:focus rect.main,
@@ -138,7 +137,6 @@
     .modal__close:hover { background: #0000000d; }
 
     .modal__body { padding: 8px 2px 0; }
-
     .modal__actions {
       display: grid;
       grid-template-columns: 1fr;
@@ -184,11 +182,10 @@
 
   <div class="wrapper">
     <div class="svg-container">
-      <!-- mantém namespaces para links dentro do SVG -->
       <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet"
            class="svg-content" aria-labelledby="title desc" role="img"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title id="title">Fluxograma do Processo de Pendencia CS/CX</title>
+        <title id="title">Fluxograma do Processo CS/CX</title>
         <desc id="desc">Fluxo com início, nove etapas e término.</desc>
 
         <defs>
@@ -209,45 +206,50 @@
 
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 1 (Pendencia) → abre modal específico de Pendencias -->
+          <!-- Nó 1 (Pendencia) → modal de Pendencias -->
           <g class="node" tabindex="0" id="node-pendencia" transform="translate(136)" role="button" aria-label="Abrir opções de Pendencias">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Pendencia</text>
+            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <tspan x="47" dy="0">Triagem e registro</tspan>
+              <tspan x="47" dy="11">das demandas</tspan>
+              <tspan x="47" dy="11">recebidas</tspan>
+            </text>
           </g>
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 2 (com LINK para a Planilha) -->
+          <!-- Nó 2 (Planilha) -->
           <g class="node" tabindex="0" transform="translate(268)">
             <a class="node-link"
                href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                xlink:href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                target="_blank" rel="noopener noreferrer">
-              <title>Abrir Planilha Google (Sheets) — Carteira ABC Paulista</title>
+              <title>Consulta/atualização da carteira ABC Paulista no Google Sheets</title>
               <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
               <text class="node-label xs" x="47" y="40" text-anchor="middle">
-                <tspan x="47" dy="0">Planilha Google</tspan>
-                <tspan x="47" dy="11">(Sheets)</tspan>
-                <tspan x="47" dy="11">Carteira ABC Paulista</tspan>
+                <tspan x="47" dy="0">Consulta/atualização</tspan>
+                <tspan x="47" dy="11">da carteira ABC Paulista</tspan>
+                <tspan x="47" dy="11">no Google Sheets</tspan>
               </text>
             </a>
           </g>
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 3 (com LINK para a Agenda) -->
+          <!-- Nó 3 (Agenda) -->
           <g class="node" tabindex="0" transform="translate(400)">
             <a class="node-link"
                href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
                xlink:href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
                target="_blank" rel="noopener noreferrer">
-              <title>Abrir Agenda — Rogério Furian (Google Calendar)</title>
+              <title>Agendamento/coordenação de agenda com o Rogerio Furian</title>
               <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label sm" x="47" y="45" text-anchor="middle">
-                <tspan x="47" dy="0">Agenda</tspan>
+              <text class="node-label xs" x="47" y="45" text-anchor="middle">
+                <tspan x="47" dy="-6">Agendamento/coordenação</tspan>
+                <tspan x="47" dy="11">de agenda com o</tspan>
                 <tspan x="47" dy="11">Rogerio Furian</tspan>
               </text>
             </a>
@@ -258,22 +260,27 @@
 
         <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
-          <!-- Nó 4 -->
+          <!-- Nó 4 (Status) -->
           <g class="node" tabindex="0" transform="translate(5)">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label" x="47" y="50" text-anchor="middle" dominant-baseline="middle">Status</text>
+            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <tspan x="47" dy="0">Registro do status</tspan>
+              <tspan x="47" dy="11">atual e próximos</tspan>
+              <tspan x="47" dy="11">marcos</tspan>
+            </text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 5 -->
+          <!-- Nó 5 (CS Acompanhamento) -->
           <g class="node" tabindex="0" transform="translate(136)">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label sm" x="47" y="45" text-anchor="middle">
-              <tspan x="47" dy="0">CS</tspan>
-              <tspan x="47" dy="11">Acompanhamento</tspan>
+            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <tspan x="47" dy="0">Monitoramento contínuo</tspan>
+              <tspan x="47" dy="11">pelo time de</tspan>
+              <tspan x="47" dy="11">Customer Success</tspan>
             </text>
           </g>
 
@@ -286,21 +293,23 @@
                      fill="#72508d" transform="translate(-12,-10)"/>
             <rect class="main" fill="#72508d" stroke="#72508d" stroke-width="0"
                   x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label sm" x="47" y="45" text-anchor="middle" fill="#fff">
-              <tspan x="47" dy="0">Custo/</tspan>
-              <tspan x="47" dy="11">Recurso</tspan>
+            <text class="node-label xs" x="47" y="40" text-anchor="middle" fill="#fff">
+              <tspan x="47" dy="0">Estimativa de esforço,</tspan>
+              <tspan x="47" dy="11">custos e disponibilidade</tspan>
+              <tspan x="47" dy="11">de recursos</tspan>
             </text>
           </g>
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
           
-          <!-- Nó 7 (Escopo/Plano de Ação) → abre modal específico do Escopo -->
+          <!-- Nó 7 (Escopo/Plano de Ação) → modal do Escopo -->
           <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir opções de Escopo/Plano de Ação">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label sm" x="47" y="45" text-anchor="middle">
-              <tspan x="47" dy="0">Escopo/Plano</tspan>
-              <tspan x="47" dy="11">de Ação</tspan>
+            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <tspan x="47" dy="0">Detalhamento do escopo</tspan>
+              <tspan x="47" dy="11">entregáveis e plano</tspan>
+              <tspan x="47" dy="11">de execução</tspan>
             </text>
           </g>
         </g>
@@ -309,31 +318,32 @@
 
         <!-- Linha 3 -->
         <g class="box-group" transform="translate(0,200)">
-          <!-- Nó 8 -->
+          <!-- Nó 8 (Follow-up) -->
           <g class="node" tabindex="0" transform="translate(5)">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Fup. Cliente</tspan>
-              <tspan x="47" dy="11">/ Rogerio</tspan>
-              <tspan x="47" dy="11">Furian</tspan>
+              <tspan x="47" dy="0">Follow-up e comunicação</tspan>
+              <tspan x="47" dy="11">com cliente e</tspan>
+              <tspan x="47" dy="11">gestores</tspan>
             </text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 9 (Validar Entrega) — AGORA COM LINK -->
+          <!-- Nó 9 (Validar Entrega) -->
           <g class="node" tabindex="0" transform="translate(136)">
             <a class="node-link"
                href="https://sankhya.sensedata.io/portfolio"
                xlink:href="https://sankhya.sensedata.io/portfolio"
                target="_blank" rel="noopener noreferrer">
-              <title>Abrir Validar Entrega — SenseData Portfolio</title>
+              <title>Homologação e aceite formal da entrega</title>
               <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label" x="47" y="45" text-anchor="middle">
-                <tspan x="47" dy="0">Validar</tspan>
-                <tspan x="47" dy="11">Entrega</tspan>
+              <text class="node-label xs" x="47" y="45" text-anchor="middle">
+                <tspan x="47" dy="-6">Homologação e aceite</tspan>
+                <tspan x="47" dy="11">formal da</tspan>
+                <tspan x="47" dy="11">entrega</tspan>
               </text>
             </a>
           </g>
@@ -428,7 +438,6 @@
         lastTrigger = returnFocusEl || null;
         modalEl.classList.add('open');
         modalEl.setAttribute('aria-hidden', 'false');
-        // foco no primeiro botão da modal
         setTimeout(() => focusEl && focusEl.focus(), 0);
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
@@ -442,7 +451,6 @@
         document.body.style.overflow = '';
       }
 
-      // Abrir Pendencias
       if (nodePendencia) {
         nodePendencia.addEventListener('click', () => openModal(modalPend, firstChoicePend, nodePendencia));
         nodePendencia.addEventListener('keydown', (e) => {
@@ -453,7 +461,6 @@
         });
       }
 
-      // Abrir Escopo/Plano de Ação
       if (nodeEscopo) {
         nodeEscopo.addEventListener('click', () => openModal(modalEscopo, firstChoiceEsc, nodeEscopo));
         nodeEscopo.addEventListener('keydown', (e) => {
@@ -464,16 +471,13 @@
         });
       }
 
-      // Fechar por botões X
       btnClosePend && btnClosePend.addEventListener('click', () => closeModal(modalPend));
       btnCloseEsc  && btnCloseEsc .addEventListener('click', () => closeModal(modalEscopo));
 
-      // Fechar por clique fora do painel
       [modalPend, modalEscopo].forEach(m => {
         m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
       });
 
-      // Fechar por ESC
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           if (modalPend.classList.contains('open'))  closeModal(modalPend);
@@ -481,7 +485,6 @@
         }
       });
 
-      // Ao clicar nas opções (abre nova aba), fechamos a modal atual:
       ['link-pend-a-s','link-pend-s-z'].forEach(id => {
         const el = document.getElementById(id);
         el && el.addEventListener('click', () => closeModal(modalPend));
