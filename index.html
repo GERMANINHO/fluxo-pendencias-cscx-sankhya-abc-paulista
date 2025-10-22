@@ -57,7 +57,8 @@
       pointer-events: none;
     }
     .node-label.xs  { font-size: 7.5px; letter-spacing: .32px; }
-    .node-label.xxs { font-size: 6.5px; letter-spacing: .28px; } /* textos mais longos */
+    .node-label.xxs { font-size: 6.5px; letter-spacing: .28px; }
+    .node-label.xxxs{ font-size: 6px;  letter-spacing: .26px; } /* só p/ Follow-up */
 
     .node { cursor: pointer; outline: none; }
     .node rect.main, .node polygon.main { transition: filter .25s ease; }
@@ -146,8 +147,8 @@
           
           <!-- Nó 3 (Agenda) -->
           <g class="node" tabindex="0" transform="translate(400)">
-            <a class="node-link"
-               href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
+            <a class="node-link
+               " href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
                xlink:href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
                target="_blank" rel="noopener noreferrer">
               <title>Agendamento/coordenação de agenda com o Rogerio Furian</title>
@@ -207,7 +208,7 @@
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
           
-          <!-- Nó 7 (Escopo/Plano de Ação) → modal do Escopo -->
+          <!-- Nó 7 (Escopo/Plano de Ação) -->
           <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir opções de Escopo/Plano de Ação">
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xxs" x="47" y="36" text-anchor="middle">
@@ -223,13 +224,14 @@
 
         <!-- Linha 3 -->
         <g class="box-group" transform="translate(0,200)">
-          <!-- Nó 8 (Follow-up) -->
+          <!-- Nó 8 (Follow-up) AJUSTADO -->
           <g class="node" tabindex="0" transform="translate(5)">
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Follow-up e comunicação</tspan>
-              <tspan x="47" dy="11">com cliente e</tspan>
-              <tspan x="47" dy="11">gestores</tspan>
+            <text class="node-label xxxs" x="47" y="34" text-anchor="middle">
+              <tspan x="47" dy="0">Follow-up e</tspan>
+              <tspan x="47" dy="9">comunicação</tspan>
+              <tspan x="47" dy="9">com cliente e</tspan>
+              <tspan x="47" dy="9">gestores</tspan>
             </text>
           </g>
           
@@ -274,18 +276,12 @@
       <div class="modal__body">
         <p>Escolha qual documento deseja abrir:</p>
         <div class="modal__actions">
-          <a id="link-pend-a-s"
-             class="btn btn--green"
+          <a id="link-pend-a-s" class="btn btn--green"
              href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">
-            Pendencias "A até S"
-          </a>
-          <a id="link-pend-s-z"
-             class="btn btn--purple"
+             target="_blank" rel="noopener noreferrer">Pendencias "A até S"</a>
+          <a id="link-pend-s-z" class="btn btn--purple"
              href="https://docs.google.com/document/d/1WittatrWZPUu4krjjHGSvu8bM2XbeDxr4fZ7_riRtWc/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">
-            Pendencias "S até Z"
-          </a>
+             target="_blank" rel="noopener noreferrer">Pendencias "S até Z"</a>
         </div>
         <div class="modal__hint">Dica: você pode fechar com <strong>Esc</strong> ou clicando fora do painel.</div>
       </div>
@@ -302,18 +298,12 @@
       <div class="modal__body">
         <p>Escolha qual documento deseja abrir:</p>
         <div class="modal__actions">
-          <a id="link-escopo-a-s"
-             class="btn btn--green"
+          <a id="link-escopo-a-s" class="btn btn--green"
              href="https://docs.google.com/document/d/1Y2k89zX3Y622LC5A3Zah_tJ9M6n5shxhAYBxltIA1_Y/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">
-            Escopo/Plano de Ação "A até S"
-          </a>
-          <a id="link-escopo-s-z"
-             class="btn btn--purple"
+             target="_blank" rel="noopener noreferrer">Escopo/Plano de Ação "A até S"</a>
+          <a id="link-escopo-s-z" class="btn btn--purple"
              href="https://docs.google.com/document/d/1WittatrWZPUu4krjjHGSvu8bM2XbeDxr4fZ7_riRtWc/edit?tab=t.0"
-             target="_blank" rel="noopener noreferrer">
-            Escopo/Plano de Ação "S até Z"
-          </a>
+             target="_blank" rel="noopener noreferrer">Escopo/Plano de Ação "S até Z"</a>
         </div>
         <div class="modal__hint">Dica: você pode fechar com <strong>Esc</strong> ou clicando fora do painel.</div>
       </div>
