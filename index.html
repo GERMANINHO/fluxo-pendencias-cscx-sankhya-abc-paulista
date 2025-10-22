@@ -52,11 +52,12 @@
       font-weight: 900;
       fill: #f5f3e7;
       text-transform: uppercase;
-      letter-spacing: .5px;
-      font-size: 10px;
+      letter-spacing: .45px;
+      font-size: 10px;           /* base */
       pointer-events: none;
     }
-    .node-label.xs{ font-size: 8px; letter-spacing: .4px; }
+    .node-label.xs  { font-size: 8px;  letter-spacing: .35px; }
+    .node-label.xxs { font-size: 7px;  letter-spacing: .30px; } /* para textos longos */
 
     .node { cursor: pointer; outline: none; }
     .node rect.main, .node polygon.main { transition: filter .25s ease; }
@@ -65,7 +66,7 @@
       filter: brightness(1.06) saturate(1.02);
     }
 
-    /* ===== Modal (popup) ===== */
+    /* ===== Modal ===== */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: var(--overlay); z-index: 999; }
     .modal.open { display: flex; }
     .modal__panel { background: var(--modal-bg); color: var(--text); width: min(92vw, 540px); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.25); padding: 20px 20px 16px; border: 1px solid #e2e8f0; }
@@ -132,10 +133,11 @@
                target="_blank" rel="noopener noreferrer">
               <title>Consulta/atualização da carteira ABC Paulista no Google Sheets</title>
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <text class="node-label xxs" x="47" y="37" text-anchor="middle">
                 <tspan x="47" dy="0">Consulta/atualização</tspan>
-                <tspan x="47" dy="11">da carteira ABC Paulista</tspan>
-                <tspan x="47" dy="11">no Google Sheets</tspan>
+                <tspan x="47" dy="9">da carteira ABC</tspan>
+                <tspan x="47" dy="9">Paulista no</tspan>
+                <tspan x="47" dy="9">Google Sheets</tspan>
               </text>
             </a>
           </g>
@@ -150,10 +152,11 @@
                target="_blank" rel="noopener noreferrer">
               <title>Agendamento/coordenação de agenda com o Rogerio Furian</title>
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xs" x="47" y="40" text-anchor="middle">
+              <text class="node-label xxs" x="47" y="36" text-anchor="middle">
                 <tspan x="47" dy="0">Agendamento/coordenação</tspan>
-                <tspan x="47" dy="11">de agenda com o</tspan>
-                <tspan x="47" dy="11">Rogerio Furian</tspan>
+                <tspan x="47" dy="9">de agenda com o</tspan>
+                <tspan x="47" dy="9">Rogerio</tspan>
+                <tspan x="47" dy="9">Furian</tspan>
               </text>
             </a>
           </g>
@@ -178,10 +181,11 @@
           <!-- Nó 5 (CS Acompanhamento) -->
           <g class="node" tabindex="0" transform="translate(136)">
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+            <text class="node-label xxs" x="47" y="36" text-anchor="middle">
               <tspan x="47" dy="0">Monitoramento contínuo</tspan>
-              <tspan x="47" dy="11">pelo time de</tspan>
-              <tspan x="47" dy="11">Customer Success</tspan>
+              <tspan x="47" dy="9">pelo time de</tspan>
+              <tspan x="47" dy="9">Customer</tspan>
+              <tspan x="47" dy="9">Success</tspan>
             </text>
           </g>
 
@@ -193,10 +197,11 @@
                      fill="#72508d" transform="translate(-12,-10)"/>
             <rect class="main" fill="#72508d" stroke="#72508d" stroke-width="0"
                   x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle" fill="#fff">
+            <text class="node-label xxs" x="47" y="36" text-anchor="middle" fill="#fff">
               <tspan x="47" dy="0">Estimativa de esforço,</tspan>
-              <tspan x="47" dy="11">custos e disponibilidade</tspan>
-              <tspan x="47" dy="11">de recursos</tspan>
+              <tspan x="47" dy="9">custos e</tspan>
+              <tspan x="47" dy="9">disponibilidade</tspan>
+              <tspan x="47" dy="9">de recursos</tspan>
             </text>
           </g>
 
@@ -205,10 +210,11 @@
           <!-- Nó 7 (Escopo/Plano de Ação) → modal do Escopo -->
           <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir opções de Escopo/Plano de Ação">
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
+            <text class="node-label xxs" x="47" y="36" text-anchor="middle">
               <tspan x="47" dy="0">Detalhamento do escopo</tspan>
-              <tspan x="47" dy="11">entregáveis e plano</tspan>
-              <tspan x="47" dy="11">de execução</tspan>
+              <tspan x="47" dy="9">entregáveis e</tspan>
+              <tspan x="47" dy="9">plano de</tspan>
+              <tspan x="47" dy="9">execução</tspan>
             </text>
           </g>
         </g>
@@ -258,7 +264,7 @@
     </div>
   </div>
 
-  <!-- Modal de opções para "Pendencia" -->
+  <!-- Modal Pendências -->
   <div class="modal" id="modal-pendencias" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -286,7 +292,7 @@
     </div>
   </div>
 
-  <!-- Modal específico para "Escopo/Plano de Ação" -->
+  <!-- Modal Escopo/Plano -->
   <div class="modal" id="modal-escopo" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-escopo-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -315,7 +321,7 @@
   </div>
 
   <script>
-    // ==== Modal logic (abrir/fechar) ====
+    // ==== Modais ====
     (function () {
       const nodePendencia = document.getElementById('node-pendencia');
       const nodeEscopo    = document.getElementById('node-escopo');
