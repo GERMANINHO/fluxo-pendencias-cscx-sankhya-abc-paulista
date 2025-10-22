@@ -54,12 +54,10 @@
       font-weight: 900;
       fill: #f5f3e7;
       text-transform: uppercase;
-      letter-spacing: .5px;
-      font-size: 10px;
+      letter-spacing: .2px;
+      font-size: 10px;            /* valor base (o script recalcula) */
       pointer-events: none;
     }
-    .node-label.sm{ font-size: 9px; }
-    .node-label.xs{ font-size: 8px; }
 
     .node { cursor: pointer; outline: none; }
     .node rect.main, .node polygon.main { transition: filter .25s ease; }
@@ -77,11 +75,8 @@
       transform-origin: center;
       pointer-events: none;
     }
-
     .node:hover .pulse-ring,
-    .node:focus .pulse-ring {
-      animation: pulseRing 1s ease-out;
-    }
+    .node:focus .pulse-ring { animation: pulseRing 1s ease-out; }
 
     @keyframes pulseRing {
       0%   { opacity: .75; stroke-width: 6;  transform: scale(1); }
@@ -89,93 +84,23 @@
       100% { opacity: 0;   stroke-width: 18; transform: scale(1.35); }
     }
 
-    /* ===== Modal (popup) ===== */
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: var(--overlay);
-      z-index: 999;
-    }
+    /* ===== Modal ===== */
+    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: var(--overlay); z-index: 999; }
     .modal.open { display: flex; }
-
-    .modal__panel {
-      background: var(--modal-bg);
-      color: var(--text);
-      width: min(92vw, 540px);
-      border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.25);
-      padding: 20px 20px 16px;
-      border: 1px solid #e2e8f0;
-    }
-    .modal__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    .modal__title {
-      margin: 0;
-      font-size: 20px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-    .modal__close {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      font-size: 20px;
-      line-height: 1;
-      padding: 6px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      color: var(--btn-text);
-    }
-    .modal__close:hover { background: #0000000d; }
-
-    .modal__body { padding: 8px 2px 0; }
-    .modal__actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      text-align: center;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--btn-border);
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      font-weight: 700;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-      transition: background .2s ease, box-shadow .2s ease, transform .06s ease;
-    }
-    .btn:hover, .btn:focus {
-      background: var(--btn-hover);
-      box-shadow: 0 0 0 2px #00000010 inset;
-    }
+    .modal__panel { background: var(--modal-bg); color: var(--text); width: min(92vw, 540px); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.25); padding: 20px 20px 16px; border: 1px solid #e2e8f0; }
+    .modal__header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    .modal__title { margin:0; font-size:20px; text-transform:uppercase; letter-spacing:.5px; }
+    .modal__close { appearance:none; border:0; background:transparent; font-size:20px; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--btn-text); }
+    .modal__close:hover { background:#0001; }
+    .modal__body { padding:8px 2px 0; }
+    .modal__actions { display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
+    .btn { display:inline-block; text-decoration:none; text-align:center; padding:12px 16px; border-radius:12px; border:1px solid var(--btn-border); background:var(--btn-bg); color:var(--btn-text); font-weight:700; letter-spacing:.6px; text-transform:uppercase; transition: background .2s, box-shadow .2s, transform .06s; }
+    .btn:hover, .btn:focus { background:var(--btn-hover); box-shadow:0 0 0 2px #00000010 inset; }
     .btn:active { transform: translateY(1px); }
-
-    .btn--green { border-color: #86efac; }
-    .btn--purple { border-color: #d8b4fe; }
-
-    .modal__hint {
-      margin: 6px 2px 0;
-      font-size: 12px;
-      opacity: .75;
-    }
-
-    @media (min-width: 540px) {
-      .modal__actions { grid-template-columns: 1fr 1fr; }
-    }
+    .btn--green { border-color:#86efac; }
+    .btn--purple { border-color:#d8b4fe; }
+    .modal__hint { margin:6px 2px 0; font-size:12px; opacity:.75; }
+    @media (min-width:540px){ .modal__actions{ grid-template-columns:1fr 1fr; } }
   </style>
 </head>
 <body>
@@ -210,11 +135,7 @@
           <g class="node" tabindex="0" id="node-pendencia" transform="translate(136)" role="button" aria-label="Abrir opções de Pendencias">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Triagem e registro</tspan>
-              <tspan x="47" dy="11">das demandas</tspan>
-              <tspan x="47" dy="11">recebidas</tspan>
-            </text>
+            <text class="node-label" text-anchor="middle" data-lines="Triagem e registro|das demandas|recebidas"></text>
           </g>
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
@@ -228,11 +149,8 @@
               <title>Consulta/atualização da carteira ABC Paulista no Google Sheets</title>
               <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xs" x="47" y="40" text-anchor="middle">
-                <tspan x="47" dy="0">Consulta/atualização</tspan>
-                <tspan x="47" dy="11">da carteira ABC Paulista</tspan>
-                <tspan x="47" dy="11">no Google Sheets</tspan>
-              </text>
+              <text class="node-label" text-anchor="middle"
+                    data-lines="Consulta/atualização|da carteira ABC Paulista|no Google Sheets"></text>
             </a>
           </g>
 
@@ -247,11 +165,8 @@
               <title>Agendamento/coordenação de agenda com o Rogerio Furian</title>
               <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xs" x="47" y="45" text-anchor="middle">
-                <tspan x="47" dy="-6">Agendamento/coordenação</tspan>
-                <tspan x="47" dy="11">de agenda com o</tspan>
-                <tspan x="47" dy="11">Rogerio Furian</tspan>
-              </text>
+              <text class="node-label" text-anchor="middle"
+                    data-lines="Agendamento/coordenação|de agenda com o|Rogerio Furian"></text>
             </a>
           </g>
         </g>
@@ -264,11 +179,8 @@
           <g class="node" tabindex="0" transform="translate(5)">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Registro do status</tspan>
-              <tspan x="47" dy="11">atual e próximos</tspan>
-              <tspan x="47" dy="11">marcos</tspan>
-            </text>
+            <text class="node-label" text-anchor="middle"
+                  data-lines="Registro do status|atual e próximos|marcos"></text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
@@ -277,11 +189,8 @@
           <g class="node" tabindex="0" transform="translate(136)">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Monitoramento contínuo</tspan>
-              <tspan x="47" dy="11">pelo time de</tspan>
-              <tspan x="47" dy="11">Customer Success</tspan>
-            </text>
+            <text class="node-label" text-anchor="middle"
+                  data-lines="Monitoramento contínuo|pelo time de|Customer Success"></text>
           </g>
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
@@ -293,11 +202,8 @@
                      fill="#72508d" transform="translate(-12,-10)"/>
             <rect class="main" fill="#72508d" stroke="#72508d" stroke-width="0"
                   x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle" fill="#fff">
-              <tspan x="47" dy="0">Estimativa de esforço,</tspan>
-              <tspan x="47" dy="11">custos e disponibilidade</tspan>
-              <tspan x="47" dy="11">de recursos</tspan>
-            </text>
+            <text class="node-label" text-anchor="middle" fill="#fff"
+                  data-lines="Estimativa de esforço,|custos e disponibilidade|de recursos"></text>
           </g>
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
@@ -306,11 +212,8 @@
           <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir opções de Escopo/Plano de Ação">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Detalhamento do escopo</tspan>
-              <tspan x="47" dy="11">entregáveis e plano</tspan>
-              <tspan x="47" dy="11">de execução</tspan>
-            </text>
+            <text class="node-label" text-anchor="middle"
+                  data-lines="Detalhamento do escopo|entregáveis e plano|de execução"></text>
           </g>
         </g>
         
@@ -322,11 +225,8 @@
           <g class="node" tabindex="0" transform="translate(5)">
             <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Follow-up e comunicação</tspan>
-              <tspan x="47" dy="11">com cliente e</tspan>
-              <tspan x="47" dy="11">gestores</tspan>
-            </text>
+            <text class="node-label" text-anchor="middle"
+                  data-lines="Follow-up e comunicação|com cliente e|gestores"></text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
@@ -340,11 +240,8 @@
               <title>Homologação e aceite formal da entrega</title>
               <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xs" x="47" y="45" text-anchor="middle">
-                <tspan x="47" dy="-6">Homologação e aceite</tspan>
-                <tspan x="47" dy="11">formal da</tspan>
-                <tspan x="47" dy="11">entrega</tspan>
-              </text>
+              <text class="node-label" text-anchor="middle"
+                    data-lines="Homologação e aceite|formal da|entrega"></text>
             </a>
           </g>
 
@@ -361,7 +258,7 @@
     </div>
   </div>
 
-  <!-- Modal de opções para "Pendencia" -->
+  <!-- Modal de Pendências -->
   <div class="modal" id="modal-pendencias" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -389,7 +286,7 @@
     </div>
   </div>
 
-  <!-- Modal específico para "Escopo/Plano de Ação" -->
+  <!-- Modal de Escopo/Plano -->
   <div class="modal" id="modal-escopo" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-escopo-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -418,20 +315,16 @@
   </div>
 
   <script>
-    // ==== Modal logic (abrir/fechar) ====
+    // ====== Modais ======
     (function () {
       const nodePendencia = document.getElementById('node-pendencia');
       const nodeEscopo    = document.getElementById('node-escopo');
-
       const modalPend     = document.getElementById('modal-pendencias');
       const modalEscopo   = document.getElementById('modal-escopo');
-
       const btnClosePend  = document.getElementById('modal-close-pend');
       const btnCloseEsc   = document.getElementById('modal-close-escopo');
-
       const firstChoicePend  = document.getElementById('link-pend-a-s');
       const firstChoiceEsc   = document.getElementById('link-escopo-a-s');
-
       let lastTrigger = null;
 
       function openModal(modalEl, focusEl, returnFocusEl) {
@@ -442,7 +335,6 @@
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
       }
-
       function closeModal(modalEl) {
         modalEl.classList.remove('open');
         modalEl.setAttribute('aria-hidden', 'true');
@@ -450,49 +342,105 @@
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
       }
-
       if (nodePendencia) {
         nodePendencia.addEventListener('click', () => openModal(modalPend, firstChoicePend, nodePendencia));
         nodePendencia.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal(modalPend, firstChoicePend, nodePendencia);
-          }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(modalPend, firstChoicePend, nodePendencia); }
         });
       }
-
       if (nodeEscopo) {
         nodeEscopo.addEventListener('click', () => openModal(modalEscopo, firstChoiceEsc, nodeEscopo));
         nodeEscopo.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal(modalEscopo, firstChoiceEsc, nodeEscopo);
-          }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(modalEscopo, firstChoiceEsc, nodeEscopo); }
         });
       }
-
       btnClosePend && btnClosePend.addEventListener('click', () => closeModal(modalPend));
       btnCloseEsc  && btnCloseEsc .addEventListener('click', () => closeModal(modalEscopo));
+      [modalPend, modalEscopo].forEach(m => m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); }));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (modalPend.classList.contains('open')) closeModal(modalPend); if (modalEscopo.classList.contains('open')) closeModal(modalEscopo); }});
+      ['link-pend-a-s','link-pend-s-z'].forEach(id => { const el = document.getElementById(id); el && el.addEventListener('click', () => closeModal(modalPend)); });
+      ['link-escopo-a-s','link-escopo-s-z'].forEach(id => { const el = document.getElementById(id); el && el.addEventListener('click', () => closeModal(modalEscopo)); });
+    })();
 
-      [modalPend, modalEscopo].forEach(m => {
-        m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
-      });
+    // ====== Auto-fit do texto nas caixas ======
+    (function fitAllLabels(){
+      function fitText(textEl){
+        const group = textEl.closest('.node');
+        if(!group) return;
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          if (modalPend.classList.contains('open'))  closeModal(modalPend);
-          if (modalEscopo.classList.contains('open')) closeModal(modalEscopo);
+        // pega o retângulo principal da caixa
+        const rect = group.querySelector('rect.main');
+        if(!rect) return;
+
+        const rx = parseFloat(rect.getAttribute('x')) || 0;
+        const ry = parseFloat(rect.getAttribute('y')) || 0;
+        const rw = parseFloat(rect.getAttribute('width'));
+        const rh = parseFloat(rect.getAttribute('height'));
+
+        const cx = rx + rw/2;               // centro X
+        const padX = 6, padY = 6;           // margens internas
+        const maxW = rw - padX*2;           // largura útil
+        const maxH = rh - padY*2;           // altura útil
+
+        // linhas vindas do atributo data-lines separadas por "|"
+        const linesAttr = textEl.getAttribute('data-lines') || textEl.textContent;
+        const lines = linesAttr.split('|').map(s => s.trim());
+
+        // limpa o conteúdo e cria tspans novos
+        while(textEl.firstChild) textEl.removeChild(textEl.firstChild);
+
+        // função que aplica um tamanho e calcula alturas/larguras
+        function layoutWithFontSize(fs){
+          const lineHeight = fs + 2; // espaçamento vertical
+          const totalH = lines.length * lineHeight;
+          if(totalH > maxH) return {ok:false};
+
+          // cria/atualiza tspans temporariamente para medir
+          const tspans = [];
+          lines.forEach((ln, i) => {
+            const tspan = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+            tspan.setAttribute('x', cx);
+            tspan.setAttribute('y', (ry + (rh - totalH)/2) + i*lineHeight);
+            tspan.textContent = ln.toUpperCase();
+            tspan.style.fontSize = fs + 'px';
+            tspans.push(tspan);
+            textEl.appendChild(tspan);
+          });
+
+          // verifica largura de cada linha
+          let fits = true;
+          tspans.forEach(ts => {
+            const w = ts.getBBox().width;
+            if(w > maxW) fits = false;
+          });
+
+          if(!fits){
+            // remove tspans antes de próxima tentativa
+            tspans.forEach(n => n.remove());
+            return {ok:false};
+          }
+          return {ok:true, tspans};
         }
-      });
 
-      ['link-pend-a-s','link-pend-s-z'].forEach(id => {
-        const el = document.getElementById(id);
-        el && el.addEventListener('click', () => closeModal(modalPend));
-      });
-      ['link-escopo-a-s','link-escopo-s-z'].forEach(id => {
-        const el = document.getElementById(id);
-        el && el.addEventListener('click', () => closeModal(modalEscopo));
-      });
+        // tenta diminuir progressivamente até caber
+        let size = 10; // parte do CSS
+        let result = layoutWithFontSize(size);
+        while(!result.ok && size > 5.5){
+          size -= 0.5;
+          result = layoutWithFontSize(size);
+        }
+      }
+
+      function run(){
+        const labels = document.querySelectorAll('.node text.node-label');
+        labels.forEach(fitText);
+      }
+
+      if('fonts' in document){
+        document.fonts.ready.then(run);
+      } else {
+        window.addEventListener('load', run);
+      }
     })();
   </script>
 </body>
