@@ -1,235 +1,191 @@
-# README — Fluxograma de Processos CS/CX (SVG em arquivo único)
+# Fluxo de Pendências — CS/CX Sankhya ABC Paulista
 
-Este documento descreve **tudo** o que foi feito até agora no nosso fluxograma: decisões de design, estrutura do código, ajustes solicitados, animações e links. O objetivo é deixar claro **como o arquivo funciona**, **o que já foi alterado** e **como manter/editar** no futuro.
-
----
-
-## 1) Visão geral
-
-* Construímos um **fluxograma responsivo em SVG** dentro de um **único arquivo HTML** (HTML5 + CSS3 + JS embutidos).
-* Todo o desenho é vetorial (SVG) para manter nitidez em qualquer zoom/tela.
-* Mantemos **Início → 9 etapas nomeadas → Fim** em **3 linhas**, com conectores pontilhados entre as caixas.
-* Implementamos um **efeito “pulse”** (inspirado no *button hover pulse* via `box-shadow`) **adaptado para SVG**.
-* Adicionamos **dois links clicáveis** diretamente em nós do diagrama:
-
-  * **Planilha Google (Sheets) Carteira ABC Paulista** → abre a planilha no Google Sheets.
-  * **Agenda Rogerio Furian** → abre o Google Calendar (agenda do Rogério).
+Fluxograma interativo (HTML + SVG + CSS + JS puro) que documenta e **opera** o processo de atendimento de pendências do time de CS/CX da **Sankhya ABC Paulista**.
+O arquivo é **autocontido** (um único `index.html`) e pode ser publicado diretamente no **GitHub Pages**.
 
 ---
 
-## 2) Estrutura e responsividade
+## Visão geral
 
-* O SVG usa `viewBox="0 0 500 500"` e `preserveAspectRatio="xMinYMin meet"` para escalar proporcionalmente.
-* A responsividade da área visível é garantida por um *wrapper* com o truque do **`padding-bottom: 100%`**:
+* **Objetivo:** padronizar a triagem, planejamento e acompanhamento das demandas de clientes, com links diretos para as ferramentas corporativas.
+* **Tecnologia:** HTML5 (SVG), CSS (estilos e animações) e JavaScript vanilla (modais e interações).
+* **Design:** caixas verdes (etapas), losango roxo (decisão/estimativa), “Start/End” circulares, setas e linhas pontilhadas.
+  Todas as caixas têm **efeito pulse** no hover/focus.
+* **Acessibilidade:**
 
-  ```css
-  .svg-container { position: relative; width: 100%; padding-bottom: 100%; }
-  .svg-content   { position: absolute; inset: 0; }
-  ```
-* Cores base do layout:
-
-  * Fundo da página: `#f5f3e7`.
-  * Caixas verdes: `#66cc00`.
-  * Losango (decoração no nó “Custo/Recurso”): `#72508d`.
-  * Conectores: linhas pontilhadas `#443c3d`.
+  * Caixas são focáveis via teclado (Tab).
+  * Enter/Espaço abre o modal; **Esc** fecha.
+  * Foco retorna ao elemento de origem após fechar o modal.
 
 ---
 
-## 3) Evolução (passo a passo do que foi feito)
+## Como usar (fluxo operacional)
 
-1. **Unificação**: juntamos **HTML, CSS e JS** em um **único arquivo** (sem dependências locais).
-2. **Limpeza de rótulos**: removemos primeiro só “Step #10” e depois **todos os “Step #X”**, deixando apenas “WORKFLOW”.
-3. **Tradução das extremidades**: trocamos “Start” → **Inicio** e “End” → **Fim**.
-4. **Nomeação das etapas** (na ordem do fluxo), substituindo “WORKFLOW” por:
+O fluxograma aparece em três linhas: **Início → Linha 1 → Linha 2 → Linha 3 → Fim**.
+As etapas que **abrem pop-up (modal)** explicativo são: **Triagem e Registro** e **Escopo/Plano**.
 
-   1. **Pendencia**
-   2. **Planilha Google (Sheets) Carteira ABC Paulista**
-   3. **Agenda Rogerio Furian**
-   4. **Status**
-   5. **CS Acompanhamento**
-   6. **Custo/Recurso**
-   7. **Escopo/Plano de Ação**
-   8. **Spams Cliente / Rogerio Furian**
-   9. **Validar Entrega**
-5. **Ajuste de layout final**: mantivemos **nove** etapas antes do **Fim**. Na última linha, **removemos o terceiro bloco** e ligamos o segundo bloco diretamente ao **Fim** para respeitar a contagem de 9 etapas.
-6. **Tamanhos de fonte e quebras**:
+### 1) Triagem e registro das demandas recebidas
 
-   * Reduzimos os tamanhos para caber dentro das formas e criamos classes utilitárias:
+* **O que faz:** orienta a abrir a **Carteira ABC Paulista (Google Sheets)**, escolher a empresa e, na aba **“Pendencias”**, cadastrar/atualizar as demandas.
+* **Como abrir:** clique na caixa “Triagem e registro…”. O modal traz instruções e um botão **“Planilha Carteira ABC Paulista”**.
+* **Link padrão:** `https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=292230500#gid=292230500`
 
-     * `.node-label` (base, 10px), `.node-label.sm` (9px) e `.node-label.xs` (8px).
-   * Inserimos quebras com `<tspan>` para rótulos longos (ex.: Planilha, Agenda, Spams, Validar Entrega).
-   * Centralizamos textos com `text-anchor="middle"` e `dominant-baseline="middle"` quando adequado.
-7. **Correção de ordem** (2ª linha): **Status** ficou à esquerda e **CS Acompanhamento** ficou no segundo bloco (como solicitado).
-8. **Efeito “Pulse” aplicado a todas as caixas**:
+### 2) Consulta/atualização da carteira ABC Paulista no Google Sheets
 
-   * Como `box-shadow` **não** funciona em formas SVG, **adaptamos** o efeito usando um **“anel de pulso”** (`.pulse-ring`) que é um **stroke animado** (cresce e desaparece).
-   * O efeito é disparado no `:hover` e `:focus` do grupo `.node` (acessível via teclado).
-9. **Correção do “Pulse” no “Custo/Recurso”**:
+* **O que faz:** acesso rápido à carteira para consultas/edições.
+* **Ação:** caixa com link direto (abre em nova aba).
 
-   * O anel estava desalinhado por usar inicialmente um `polygon` maior/offset.
-   * **Fix**: passamos a usar um **retângulo de anel** alinhado **exatamente** ao retângulo principal do nó (x=2, y=25, w=90, h=50).
-10. **Links clicáveis**:
+### 3) Agendamento/coordenação de agenda com o Rogério Furian
 
-    * **Planilha Google (Sheets) Carteira ABC Paulista**: adicionamos `<a>` dentro do grupo do nó com `target="_blank"` e `rel="noopener noreferrer"`.
-    * **Agenda Rogerio Furian**: mesmo padrão, abrindo o Google Calendar.
+* **O que faz:** aponta para a agenda corporativa.
+* **Ação:** caixa com link direto para o Google Calendar (abre em nova aba).
+
+### 4) Registro do status atual e próximos marcos
+
+* **O que faz:** consolidação de status/milestones; use para reportes e sincronismo com o time.
+
+### 5) Monitoramento contínuo pelo time de Customer Success
+
+* **O que faz:** acompanhamento sistemático dos pontos em aberto, combinando rotinas de follow-up e revisão.
+
+### 6) Estimativa de esforço, custos e disponibilidade de recursos
+
+* **O que faz:** etapa de decisão/planejamento (losango roxo). Use para dimensionar recursos, dependências e riscos.
+
+### 7) Detalhamento do escopo, entregáveis e plano de execução
+
+* **O que faz:** abre **modal** com orientações de **Escopo/Plano** (objetivo, entregáveis/aceite, 5W2H, prazos, RACI, riscos e métricas).
+  O modal também oferece o botão **“Planilha Carteira ABC Paulista”** para registrar/alinhar com a empresa/aba Pendencias.
+* **Link padrão do botão do modal:** mesmo da carteira (acima).
+
+### 8) Follow-up e comunicação com cliente e gestores
+
+* **O que faz:** lembretes, envios e registros — mantendo cliente e gestão informados.
+
+### 9) Homologação e aceite formal da entrega
+
+* **O que faz:** fechamento por aceite formal.
+* **Ação:** link direto para SenseData (abre em nova aba).
+  **Link padrão:** `https://sankhya.sensedata.io/portfolio`
+
+### Fim
+
+* Conclusão do processo.
 
 ---
 
-## 4) Como o código está organizado no SVG
+## Estrutura do projeto
 
-Cada etapa (nó) é um `<g class="node" transform="translate(...)" tabindex="0">` contendo:
-
-* **Anel de pulso**: um `<rect class="pulse-ring">` (ou poderia ser `polygon` se quisermos um anel no formato do losango).
-* **Forma principal**:
-
-  * Retângulo verde (`<rect class="main" fill="#66cc00">`) para a maioria dos nós.
-  * Em **Custo/Recurso**, mantivemos um **losango decorativo** (`<polygon class="main" ...>`) atrás do retângulo principal roxo.
-* **Texto**: `<text class="node-label ...">` com eventuais `<tspan>` para quebrar linhas.
-* **(Quando há link)**: todo o bloco de desenho/texte é envolvido por um `<a ...>`.
-
-Exemplo de nó com link (Planilha):
-
-```html
-<g class="node" tabindex="0" transform="translate(268)">
-  <a href="https://docs.google.com/..." target="_blank" rel="noopener noreferrer">
-    <title>Abrir Planilha Google (Sheets) — Carteira ABC Paulista</title>
-    <rect class="pulse-ring" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-    <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-    <text class="node-label xs" x="47" y="40" text-anchor="middle">
-      <tspan x="47" dy="0">Planilha Google</tspan>
-      <tspan x="47" dy="11">(Sheets)</tspan>
-      <tspan x="47" dy="11">Carteira ABC Paulista</tspan>
-    </text>
-  </a>
-</g>
+```
+/ (raiz do repositório)
+└── index.html   # arquivo único com: SVG do fluxo, estilos, scripts e modais
 ```
 
----
-
-## 5) O efeito “Pulse” (como funciona e como ajustar)
-
-* Em CSS criamos `.pulse-ring` e uma animação `@keyframes pulseRing`:
-
-  ```css
-  .pulse-ring {
-    fill: none;
-    stroke: #f699d1;     /* cor do pulso */
-    stroke-width: 0;
-    opacity: 0;
-    transform-box: fill-box;
-    transform-origin: center;
-    pointer-events: none;
-  }
-  .node:hover .pulse-ring,
-  .node:focus .pulse-ring { animation: pulseRing 1s ease-out; }
-
-  @keyframes pulseRing {
-    0%   { opacity:.75; stroke-width:6;  transform: scale(1);    }
-    70%  { opacity:.35; stroke-width:14; transform: scale(1.25); }
-    100% { opacity:0;   stroke-width:18; transform: scale(1.35); }
-  }
-  ```
-* O brilho leve na caixa em hover/focus:
-
-  ```css
-  .node rect.main, .node polygon.main { transition: filter .25s ease; }
-  .node:hover rect.main, .node:focus rect.main,
-  .node:hover polygon.main, .node:focus polygon.main {
-    filter: brightness(1.06) saturate(1.02);
-  }
-  ```
-* **Dica**: se quiser que cada nó pulse na **mesma cor da sua caixa**, basta:
-
-  * Definir `stroke: currentColor` em `.pulse-ring`.
-  * Atribuir `color: #66cc00` (ou outra) no `<g class="node">` correspondente.
+* **SVG:** desenha nós (retângulos, círculo de início/fim, losango) e conexões.
+* **CSS:** estilos das caixas, tipografia, responsividade e **animação “pulse”**.
+* **JS:** abertura/fechamento de modais, foco acessível, links dos botões.
 
 ---
 
-## 6) Acessibilidade e usabilidade
+## Publicação (GitHub Pages)
 
-* O SVG tem `<title>` e `<desc>` para leitores de tela.
-* Cada nó interativo possui `tabindex="0"` para receber foco via teclado (e disparar o efeito `:focus`).
-* O texto dentro das caixas não intercepta o mouse (`pointer-events: none;`) para o clique acontecer no grupo inteiro.
+1. Faça commit do `index.html` na branch `main` (ou `docs`).
+2. Em **Settings → Pages**:
 
----
+   * **Source:** `Deploy from a branch`
+   * **Branch:** `main` (folder `/root`)
+3. Aguarde o deploy e acesse a URL exibida pelo GitHub Pages.
 
-## 7) Como editar textos e disposições
-
-* **Textos curtos**: edite diretamente o conteúdo do `<text class="node-label">...</text>`.
-* **Textos em 2 ou 3 linhas**: use `<tspan>` com `x` fixo e `dy="11"` (ou ajuste) para o espaçamento entre linhas.
-* **Fontes**:
-
-  * Use `.node-label` (base), `.node-label.sm` (médio) ou `.node-label.xs` (pequeno) para se ajustar ao espaço.
-* **Posição dos nós**: mude o `transform="translate(x,y)"` no `<g class="node">`.
-* **Adicionar um novo nó**:
-
-  * Copie um `<g class="node">...</g>`, cole, mude o `translate(...)`, edite texto e conectores (`<line>`).
-* **Links**:
-
-  * Envolva o conteúdo do nó com `<a href="..." target="_blank" rel="noopener noreferrer"> ... </a>`.
-  * Mantivemos `xmlns:xlink` e também `xlink:href` para compatibilidade ampla (SVG 1.1); `href` puro já funciona em navegadores modernos.
+> Dica: para uma URL dedicada (ex.: `https://seu-usuario.github.io/fluxo-pendencias-cscx-sankhya-abc-paulista/`), mantenha o nome do repositório igual ao que deseja na rota.
 
 ---
 
-## 8) Conectores, seta e ordem do fluxo
+## Personalização
 
-* Conectores são `<line>` com `stroke-dasharray="2,1"`.
-* A seta é um `<marker id="arrow">` acoplado via `marker-start="url(#arrow)"` (usado no conector que aponta para “Escopo/Plano de Ação”).
-* Ordem final das etapas (esquerda → direita; de cima para baixo):
+### Editar textos das caixas
 
-  1. **Pendencia**
-  2. **Planilha Google (Sheets) Carteira ABC Paulista**
-  3. **Agenda Rogerio Furian**
-  4. **Status**
-  5. **CS Acompanhamento**
-  6. **Custo/Recurso**
-  7. **Escopo/Plano de Ação**
-  8. **Spams Cliente / Rogerio Furian**
-  9. **Validar Entrega**
+No `index.html`, procure cada `<text class="node-label ...">` e ajuste os `<tspan>`.
+As classes `xs`, `xxs` e `xxxs` controlam o **tamanho da fonte** (use `xxxs` para textos longos).
 
-  * **Fim**
+### Ajustar links
 
----
+* **Carteira (Triagem/Modal):**
 
-## 9) Decisões importantes e correções
+  * IDs dos botões: `link-triagem-carteira` e `link-escopo-carteira`.
+  * Altere o atributo `href` para o destino desejado.
+* **Agenda Rogério:** edite o `href` do `<a>` dentro da caixa de “Agenda”.
+* **Homologação:** edite o `href` do `<a>` em “Homologação e aceite…”.
 
-* **Remoção dos “Step #X”** para manter o diagrama limpo e 100% em PT-BR.
-* **Troca de Start/End** para **Inicio/Fim** (grafia sem acento conforme pedido).
-* **Ajuste tipográfico**: redução de fontes + uso de `<tspan>` para caber nos retângulos.
-* **Inversão de Status/CS Acompanhamento** (2ª linha) conforme fluxo desejado.
-* **Pulse no “Custo/Recurso”**: bug corrigido (anel reposicionado para o retângulo principal).
-* **Links adicionados**:
+### Efeito pulse (animação)
 
-  * Planilha (Google Sheets).
-  * Agenda (Google Calendar).
-* **Acessibilidade**: foco por teclado, `<title>` e `<desc>`, e `pointer-events: none` no texto.
+Cada caixa tem um elemento `.pulse`. A cor pode ser trocada por caixa via CSS custom property:
 
----
+```html
+<g class="node" style="--pulse-color:#66cc00"> … </g>
+```
 
-## 10) Como executar
+Ajustes de intensidade/duração:
 
-* Basta **abrir o arquivo HTML** em qualquer navegador moderno.
-* Não há dependências de build; a única chamada externa é a fonte do Google Fonts.
+```css
+@keyframes pulseAnim {
+  0%   { transform: scale(1);    opacity: .55; }
+  70%  { transform: scale(1.18); opacity: 0; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+/* mude scale/tempos para personalizar */
+```
 
----
+### Acessibilidade (modais)
 
-## 11) Personalizações futuras (opcional)
-
-* **Pulso por cor de nó**: fazer o pulso herdar a cor da caixa (`stroke: currentColor` + `color` no grupo).
-* **Pulso no formato do losango**: trocar o `<rect class="pulse-ring">` por um `<polygon class="pulse-ring">` com os mesmos pontos do losango e sem `transform`.
-* **Tooltip por nó**: adicionar `<title>` específico dentro de cada grupo para mostrar dica ao passar o mouse.
-* **Estados (feito/em progresso/bloqueado)**: variar `fill` e/ou borda do retângulo/losango por classe (ex.: `.done`, `.wip`, `.blocked`).
-* **Exportar imagem**: criar um botão que usa `SVG` → `PNG` via canvas para baixar prints do fluxograma.
+* **Abrir:** Enter/Espaço na caixa.
+* **Fechar:** clique fora do painel ou tecla **Esc**.
+* **Foco:** volta para a caixa que abriu o modal.
 
 ---
 
-## 12) Referência rápida de classes
+## Manutenção & boas práticas
 
-* **.node**: grupo interativo do nó (recebe `hover`/`focus`).
-* **.main**: forma visual do nó (retângulo ou losango).
-* **.pulse-ring**: anel animado do pulso (stroke animado).
-* **.node-label / .sm / .xs**: tamanhos de texto (10px, 9px, 8px).
+* **Versione os links corporativos** (Google Sheets, Calendar, SenseData).
+  Mudanças de `gid`/URLs devem ser refletidas nos `href` do HTML.
+* Evite blocos de texto muito longos nas caixas; quando necessário, **divida com `<tspan>`** ou reduza para `xxs/xxxs`.
+* Sempre teste:
+
+  * Hover/focus e pulse;
+  * Abertura/fechamento dos modais com teclado e mouse;
+  * Abertura dos links (nova aba) e permissões de acesso.
 
 ---
 
-Se quiser, eu posso gerar uma versão **README.md** pronta em Markdown (com trechos de código já formatados) para colocar direto no repositório.
+## FAQ
+
+**1) O texto estourou a caixa. O que fazer?**
+Use a classe menor (`xxs` → `xxxs`) ou reduza as linhas dos `<tspan>`.
+
+**2) O modal não abre pelo teclado.**
+Confirme se o grupo tem `tabindex="0"` e se o listener está ativo no script (Enter/Espaço).
+
+**3) O link do Google Sheets não carrega.**
+Verifique se está logado na conta com permissão e se o `gid` é o correto.
+
+---
+
+## Licença
+
+Este repositório pode ser utilizado internamente pela equipe.
+Caso queira abrir, recomendo **MIT License** (simples e permissiva). Adicione um arquivo `LICENSE` se necessário.
+
+---
+
+## Créditos
+
+Projeto concebido para a operação de **CS/CX Sankhya ABC Paulista**.
+Implementação em HTML/SVG/CSS/JS com foco em simplicidade, acessibilidade e facilidade de manutenção.
+
+---
+
+### Resumo rápido (TL;DR)
+
+* Abra o site (GitHub Pages).
+* Clique nas caixas para seguir o fluxo; **Triagem** e **Escopo/Plano** mostram **modais** com instruções + botão para a **Carteira ABC Paulista**.
+* **Agenda** e **Homologação** abrem links diretos.
+* Todo o comportamento está em **um único `index.html`** — fácil de editar e publicar.
