@@ -62,7 +62,6 @@
 
     .node { cursor: pointer; outline: none; }
 
-    /* Hover leve */
     .node rect.main, .node polygon.main { transition: filter .25s ease; }
     .node:hover rect.main, .node:focus rect.main,
     .node:hover polygon.main, .node:focus polygon.main {
@@ -180,9 +179,8 @@
           </g>
         </g>
 
-        <!-- Linhas verticais (Registrar→Comunicar ; Agendar→Monitorar) -->
-        <line x1="185" x2="185" y1="77" y2="200" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
-        <line x1="405" x2="405" y1="77" y2="124" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+        <!-- (REMOVIDA) linha vertical Registrar↕Comunicar -->
+        <!-- <line x1="185" x2="185" y1="77" y2="200" ... /> -->
 
         <!-- Linha 2 (exatamente abaixo: x=140, 250, 360) -->
         <g class="box-group" transform="translate(0,100)">
@@ -221,6 +219,12 @@
             </text>
           </g>
         </g>
+
+        <!-- NOVA linha horizontal Registrar Status ↔ Monitorar (y=150) -->
+        <line x1="340" x2="360" y1="150" y2="150" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+
+        <!-- NOVA linha vertical contínua Comunicar ↕ Homologar (entre as caixas) -->
+        <line x1="185" x2="185" y1="175" y2="225" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
         <!-- Linha 3 (fechamento) -->
         <g class="box-group" transform="translate(0,200)">
