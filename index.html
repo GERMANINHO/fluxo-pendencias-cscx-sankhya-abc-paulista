@@ -122,7 +122,7 @@
           </marker>
         </defs>
 
-        <!-- Linha 1 (topo: x=140, 250, 360) -->
+        <!-- Linha 1 -->
         <g class="box-group">
           <!-- INÍCIO -->
           <g transform="translate(-5)">
@@ -179,12 +179,12 @@
           </g>
         </g>
 
-        <!-- (REMOVIDA) linha vertical Registrar↕Comunicar -->
-        <!-- <line x1="185" x2="185" y1="77" y2="200" ... /> -->
+        <!-- NOVA linha vertical: Agendar/Alinhar ↓ Monitorar -->
+        <line x1="407" x2="407" y1="77" y2="124" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- Linha 2 (exatamente abaixo: x=140, 250, 360) -->
+        <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
-          <!-- COMUNICAR/ACOMPANHAR (abaixo do Registrar) -->
+          <!-- COMUNICAR/ACOMPANHAR -->
           <g class="node" tabindex="0" transform="translate(140)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
@@ -196,7 +196,7 @@
             </text>
           </g>
 
-          <!-- REGISTRAR STATUS (abaixo do Consultar/Atualizar) -->
+          <!-- REGISTRAR STATUS -->
           <g class="node" tabindex="0" transform="translate(250)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
@@ -207,7 +207,7 @@
             </text>
           </g>
 
-          <!-- MONITORAR CONTINUAMENTE (abaixo do Agendar/Alinhar) -->
+          <!-- MONITORAR CONTINUAMENTE -->
           <g class="node" tabindex="0" transform="translate(360)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
@@ -220,13 +220,16 @@
           </g>
         </g>
 
-        <!-- NOVA linha horizontal Registrar Status ↔ Monitorar (y=150) -->
+        <!-- NOVA linha horizontal: Comunicar ↔ Registrar Status -->
+        <line x1="230" x2="250" y1="150" y2="150" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+
+        <!-- linha horizontal já existente: Registrar Status ↔ Monitorar -->
         <line x1="340" x2="360" y1="150" y2="150" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- NOVA linha vertical contínua Comunicar ↕ Homologar (entre as caixas) -->
+        <!-- linha vertical contínua: Comunicar ↕ Homologar -->
         <line x1="185" x2="185" y1="175" y2="225" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-        <!-- Linha 3 (fechamento) -->
+        <!-- Linha 3 -->
         <g class="box-group" transform="translate(0,200)">
           <!-- HOMOLOGAR/ACEITAR -->
           <g class="node" tabindex="0" transform="translate(140)" style="--pulse-color:#66cc00;">
@@ -247,7 +250,7 @@
           <!-- linha para o FIM -->
           <line x1="230" x2="392" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- FIM ao lado -->
+          <!-- FIM -->
           <g transform="translate(392)">
             <circle fill="#000" cx="55" cy="50" r="45" opacity="1" />
             <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
@@ -287,7 +290,7 @@
     </div>
   </div>
 
-  <!-- Modal AGENDA (Agendar/Alinhar…) -->
+  <!-- Modal AGENDA -->
   <div class="modal" id="modal-agenda" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-agenda-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -344,7 +347,6 @@
   </div>
 
   <script>
-    // ==== Modais ====
     (function () {
       const nodePendencia = document.getElementById('node-pendencia');
       const nodeAgenda    = document.getElementById('node-agenda');
@@ -411,7 +413,6 @@
         }
       });
 
-      // fechar modais ao clicar nos botões (opcional)
       const triagemBtn = document.getElementById('link-triagem-carteira');
       triagemBtn && triagemBtn.addEventListener('click', () => closeModal(modalPend));
       const agendaBtns = [document.getElementById('link-agenda-add'), document.getElementById('link-agenda-google')];
