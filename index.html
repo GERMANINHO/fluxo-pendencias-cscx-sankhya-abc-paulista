@@ -58,7 +58,7 @@
     }
     .node-label.xs  { font-size: 7.5px; letter-spacing: .32px; }
     .node-label.xxs { font-size: 6.5px; letter-spacing: .28px; }
-    .node-label.xxxs{ font-size: 6px;  letter-spacing: .26px; } /* Follow-up */
+    .node-label.xxxs{ font-size: 6px;  letter-spacing: .26px; } /* textos longos */
 
     .node { cursor: pointer; outline: none; }
 
@@ -92,7 +92,7 @@
     /* ===== Modal ===== */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: var(--overlay); z-index: 999; }
     .modal.open { display: flex; }
-    .modal__panel { background: var(--modal-bg); color: var(--text); width: min(92vw, 540px); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.25); padding: 20px 20px 16px; border: 1px solid #e2e8f0; max-height: 86vh; overflow: auto; }
+    .modal__panel { background: var(--modal-bg); color: var(--text); width: min(92vw, 560px); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.25); padding: 20px 20px 16px; border: 1px solid #e2e8f0; max-height: 86vh; overflow: auto; }
     .modal__header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
     .modal__title { margin:0; font-size:20px; text-transform:uppercase; letter-spacing:.5px; }
     .modal__close { appearance:none; border:0; background:transparent; font-size:20px; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--btn-text); }
@@ -115,7 +115,7 @@
            class="svg-content" aria-labelledby="title desc" role="img"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title id="title">Fluxograma do Processo CS/CX</title>
-        <desc id="desc">Fluxo com início, nove etapas e término.</desc>
+        <desc id="desc">Fluxo com início, sete etapas e término.</desc>
 
         <defs>
           <marker id="arrow" markerWidth="4" markerHeight="10" viewBox="-2 -4 4 4" refX="0" refY="0" markerUnits="strokeWidth" orient="auto">
@@ -135,31 +135,30 @@
 
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 1 (Triagem) -->
+          <!-- Nó 1 (Triar/Registrar) -->
           <g class="node" tabindex="0" id="node-pendencia" transform="translate(136)" role="button" aria-label="Instruções de Triagem e Registro" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Triagem e registro</tspan>
-              <tspan x="47" dy="11">das demandas</tspan>
-              <tspan x="47" dy="11">recebidas</tspan>
+              <tspan x="47" dy="0">Triar e registrar</tspan>
+              <tspan x="47" dy="11">demandas</tspan>
             </text>
           </g>
 
           <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 2 (Planilha Carteira) -->
+          <!-- Nó 2 (Consultar/Atualizar Carteira) -->
           <g class="node" tabindex="0" transform="translate(268)" style="--pulse-color:#66cc00;">
             <a class="node-link"
                href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                xlink:href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                target="_blank" rel="noopener noreferrer">
               <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <title>Consulta/atualização da carteira ABC Paulista no Google Sheets</title>
+              <title>Consultar/atualizar a carteira ABC Paulista no Google Sheets</title>
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
               <text class="node-label xxs" x="47" y="37" text-anchor="middle">
-                <tspan x="47" dy="0">Consulta/atualização</tspan>
-                <tspan x="47" dy="9">da carteira ABC</tspan>
+                <tspan x="47" dy="0">Consultar/atualizar</tspan>
+                <tspan x="47" dy="9">carteira ABC</tspan>
                 <tspan x="47" dy="9">Paulista no</tspan>
                 <tspan x="47" dy="9">Google Sheets</tspan>
               </text>
@@ -168,80 +167,41 @@
 
           <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
           
-          <!-- Nó 3 (Agenda) -->
-          <g class="node" tabindex="0" transform="translate(400)" style="--pulse-color:#66cc00;">
-            <a class="node-link"
-               href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
-               xlink:href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
-               target="_blank" rel="noopener noreferrer">
-              <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <title>Agendamento/coordenação de agenda com o Rogerio Furian</title>
-              <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xxs" x="47" y="36" text-anchor="middle">
-                <tspan x="47" dy="0">Agendamento/coordenação</tspan>
-                <tspan x="47" dy="9">de agenda com o</tspan>
-                <tspan x="47" dy="9">Rogerio</tspan>
-                <tspan x="47" dy="9">Furian</tspan>
-              </text>
-            </a>
+          <!-- Nó 3 (Agendar/Passar Atividades) -->
+          <g class="node" tabindex="0" id="node-agenda" transform="translate(400)" role="button" aria-label="Abrir instruções de Agendamento/Passagem de atividades" style="--pulse-color:#66cc00;">
+            <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
+            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <text class="node-label xxs" x="47" y="36" text-anchor="middle">
+              <tspan x="47" dy="0">Agendar/Passar</tspan>
+              <tspan x="47" dy="9">atividades para</tspan>
+              <tspan x="47" dy="9">Rogério Furian</tspan>
+            </text>
           </g>
         </g>
         
-        <line x1="450" x2="450" y1="77" y2="124" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
-
         <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
-          <!-- Nó 4 (Status) -->
+          <!-- Nó 4 (Registrar Status) -->
           <g class="node" tabindex="0" transform="translate(5)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Registro do status</tspan>
-              <tspan x="47" dy="11">atual e próximos</tspan>
+              <tspan x="47" dy="0">Registrar status</tspan>
+              <tspan x="47" dy="11">e próximos</tspan>
               <tspan x="47" dy="11">marcos</tspan>
             </text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 5 (CS Acompanhamento) -->
+          <!-- Nó 5 (Monitorar continuamente - CS) -->
           <g class="node" tabindex="0" transform="translate(136)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xxs" x="47" y="36" text-anchor="middle">
-              <tspan x="47" dy="0">Monitoramento contínuo</tspan>
+              <tspan x="47" dy="0">Monitorar continuamente</tspan>
               <tspan x="47" dy="9">pelo time de</tspan>
-              <tspan x="47" dy="9">Customer</tspan>
-              <tspan x="47" dy="9">Success</tspan>
-            </text>
-          </g>
-
-          <line x1="230" x2="268" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
-          
-          <!-- Nó 6 (Custo/Recurso) -->
-          <g class="node" tabindex="0" transform="translate(268)" style="--pulse-color:#72508d;">
-            <polygon class="pulse" points="60,20 100,40 100,80 60,100 20,80 20,40" transform="translate(-12,-10)"/>
-            <polygon class="main" points="60,20 100,40 100,80 60,100 20,80 20,40" fill="#72508d" transform="translate(-12,-10)"/>
-            <rect class="main" fill="#72508d" stroke="#72508d" stroke-width="0" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xxs" x="47" y="36" text-anchor="middle" fill="#fff">
-              <tspan x="47" dy="0">Estimativa de esforço,</tspan>
-              <tspan x="47" dy="9">custos e</tspan>
-              <tspan x="47" dy="9">disponibilidade</tspan>
-              <tspan x="47" dy="9">de recursos</tspan>
-            </text>
-          </g>
-
-          <line x1="362" x2="400" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" marker-start="url(#arrow)"/>
-          
-          <!-- Nó 7 (Escopo/Plano de Ação) -->
-          <g class="node" tabindex="0" id="node-escopo" transform="translate(400)" role="button" aria-label="Abrir instruções de Escopo/Plano de Ação" style="--pulse-color:#66cc00;">
-            <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xxs" x="47" y="36" text-anchor="middle">
-              <tspan x="47" dy="0">Detalhamento do escopo</tspan>
-              <tspan x="47" dy="9">entregáveis e</tspan>
-              <tspan x="47" dy="9">plano de</tspan>
-              <tspan x="47" dy="9">execução</tspan>
+              <tspan x="47" dy="9">Customer Success</tspan>
             </text>
           </g>
         </g>
@@ -250,32 +210,31 @@
 
         <!-- Linha 3 -->
         <g class="box-group" transform="translate(0,200)">
-          <!-- Nó 8 (Follow-up) -->
+          <!-- Nó 6 (Comunicar/Acompanhar) -->
           <g class="node" tabindex="0" transform="translate(5)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xxxs" x="47" y="34" text-anchor="middle">
-              <tspan x="47" dy="0">Follow-up e</tspan>
-              <tspan x="47" dy="9">comunicação</tspan>
-              <tspan x="47" dy="9">com cliente e</tspan>
+              <tspan x="47" dy="0">Comunicar e</tspan>
+              <tspan x="47" dy="9">acompanhar</tspan>
+              <tspan x="47" dy="9">cliente e</tspan>
               <tspan x="47" dy="9">gestores</tspan>
             </text>
           </g>
           
           <line x1="100" x2="136" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
 
-          <!-- Nó 9 (Validar Entrega) -->
+          <!-- Nó 7 (Homologar/Aceitar Entrega) -->
           <g class="node" tabindex="0" transform="translate(136)" style="--pulse-color:#66cc00;">
             <a class="node-link"
                href="https://sankhya.sensedata.io/portfolio"
                xlink:href="https://sankhya.sensedata.io/portfolio"
                target="_blank" rel="noopener noreferrer">
               <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <title>Homologação e aceite formal da entrega</title>
+              <title>Homologar e aceitar entrega</title>
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
               <text class="node-label xs" x="47" y="40" text-anchor="middle">
-                <tspan x="47" dy="0">Homologação e aceite</tspan>
-                <tspan x="47" dy="11">formal da</tspan>
+                <tspan x="47" dy="0">Homologar e aceitar</tspan>
                 <tspan x="47" dy="11">entrega</tspan>
               </text>
             </a>
@@ -298,16 +257,16 @@
   <div class="modal" id="modal-pendencias" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
-        <h2 class="modal__title" id="modal-pendencias-title">Triagem e registro das demandas</h2>
+        <h2 class="modal__title" id="modal-pendencias-title">Triar e registrar demandas</h2>
         <button class="modal__close" type="button" id="modal-close-pend" aria-label="Fechar">✕</button>
       </div>
       <div class="modal__body">
         <p>
           Ao clicar no botão abaixo, você abrirá a
           <strong>Carteira ABC Paulista</strong> (Google Sheets).
-          Na planilha, <strong>escolha a empresa</strong> com a qual vai trabalhar e,
+          Na planilha, <strong>escolher a empresa</strong> com a qual vai trabalhar e,
           na <strong>aba “Pendencias”</strong> da planilha dessa empresa,
-          registre as demandas para dar andamento a este processo.
+          <strong>registrar/atualizar</strong> as demandas para dar andamento ao processo.
         </p>
         <div class="modal__actions">
           <a id="link-triagem-carteira"
@@ -322,49 +281,61 @@
     </div>
   </div>
 
-  <!-- Modal ESCOP0 / PLANO — ATUALIZADO -->
-  <div class="modal" id="modal-escopo" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-escopo-title">
+  <!-- Modal AGENDA (com conteúdo de Estimativa + Escopo/Plano) -->
+  <div class="modal" id="modal-agenda" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-agenda-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
-        <h2 class="modal__title" id="modal-escopo-title">Escopo, Entregáveis e Plano de Execução</h2>
-        <button class="modal__close" type="button" id="modal-close-escopo" aria-label="Fechar">✕</button>
+        <h2 class="modal__title" id="modal-agenda-title">Agendar/Passar atividades para Rogério Furian</h2>
+        <button class="modal__close" type="button" id="modal-close-agenda" aria-label="Fechar">✕</button>
       </div>
       <div class="modal__body">
         <p>
-          Ao clicar no botão abaixo, você abrirá a
-          <strong>Carteira ABC Paulista</strong> (Google Sheets).
-          Na planilha, <strong>escolha a empresa</strong> com a qual vai trabalhar e,
-          na <strong>aba “Pendencias”</strong> da planilha dessa empresa,
-          registre/atualize as demandas para dar andamento a este processo.
+          Esta etapa consolida duas frentes antes da passagem/encaminhamento ao Rogério:
+          <strong>estimar esforço/custos/recursos</strong> e
+          <strong>detalhar escopo/entregáveis/plano</strong>.
         </p>
 
-        <h3 style="margin:14px 0 6px; font-size:16px;">Entradas necessárias</h3>
+        <h3 style="margin:10px 0 6px; font-size:16px;">1) Estimar esforço, custos e recursos</h3>
         <ul>
-          <li>Contexto do cliente e objetivo da demanda.</li>
-          <li>Registros de pendências e histórico (planilha/triagem).</li>
-          <li>Restrições contratuais, SLAs, premissas e riscos já conhecidos.</li>
+          <li>Dimensionar esforço (horas/pontos), custos diretos/indiretos e disponibilidade de pessoas.</li>
+          <li>Identificar dependências, riscos e premissas; mapear impactos em prazos e qualidade.</li>
+          <li>Registrar a estimativa na carteira/registro do cliente para rastreabilidade.</li>
         </ul>
 
-        <h3 style="margin:10px 0 6px; font-size:16px;">Como elaborar</h3>
+        <h3 style="margin:10px 0 6px; font-size:16px;">2) Detalhar escopo, entregáveis e plano (5W2H)</h3>
         <ol>
-          <li><strong>Objetivo &amp; Escopo:</strong> Descreva o objetivo em 1–2 frases. Liste o escopo incluído e o fora de escopo (para evitar ambiguidades).</li>
-          <li><strong>Entregáveis &amp; Critérios de Aceite:</strong> Para cada entregável, detalhe o que será entregue e como será validado (critérios mensuráveis).</li>
-          <li><strong>Plano de Ação (5W2H):</strong> Para cada tarefa: o quê, por quê, quem, quando, onde, como, quanto (esforço/custo).</li>
-          <li><strong>Prazos e Marcos:</strong> Defina um cronograma macro com marcos (milestones) e dependências.</li>
-          <li><strong>Papéis &amp; Responsabilidades (RACI):</strong> Quem executa, aprova, apoia e é informado (inclua cliente / Rogério Furian quando pertinente).</li>
-          <li><strong>Riscos, Premissas e Planos de Contingência:</strong> Registre riscos relevantes e como mitigá-los; explicite premissas.</li>
-          <li><strong>Métricas &amp; Acompanhamento:</strong> Defina indicadores de progresso/resultado e a cadência de reporte (ligação com “Status” e “CS Acompanhamento”).</li>
+          <li><strong>Objetivo &amp; Escopo:</strong> descrever o objetivo (1–2 frases) e listar o que está dentro/fora do escopo.</li>
+          <li><strong>Entregáveis &amp; Critérios de Aceite:</strong> o que será entregue e como será validado.</li>
+          <li><strong>Plano de Ação (5W2H):</strong> o quê, por quê, quem, quando, onde, como, quanto.</li>
+          <li><strong>Prazos e Marcos:</strong> cronograma macro e dependências.</li>
+          <li><strong>RACI:</strong> quem executa, aprova, apoia e é informado (incluir cliente / Rogério quando aplicável).</li>
+          <li><strong>Riscos &amp; Premissas:</strong> mitigar e explicitar.</li>
+          <li><strong>Métricas &amp; Acompanhamento:</strong> indicadores e cadência de reporte.</li>
         </ol>
 
+        <p>Após documentar, <strong>agendar ou repassar as atividades</strong> para alinhamento com o Rogério Furian.</p>
+
         <div class="modal__actions">
-          <a id="link-escopo-carteira"
-             class="btn btn--green"
-             href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=292230500#gid=292230500"
+          <!-- Link 1: manter o atual (adicionar agenda do Rogério) -->
+          <a id="link-agenda-add"
+             class="btn btn--purple"
+             href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
              target="_blank" rel="noopener noreferrer">
-            Planilha Carteira ABC Paulista
+            Adicionar agenda do Rogério
+          </a>
+
+          <!-- Link 2: abrir a própria agenda (u/2) -->
+          <a id="link-agenda-google"
+             class="btn btn--green"
+             href="https://calendar.google.com/calendar/u/2/r"
+             target="_blank" rel="noopener noreferrer">
+            Abrir minha agenda do Google
           </a>
         </div>
-        <div class="modal__hint">Dica: registre o link do documento final no “Status” e em “CS Acompanhamento”.</div>
+
+        <div class="modal__hint">
+          Dica: inclua no evento um resumo da atividade, responsáveis, prazos e links de apoio (carteira/registro).
+        </div>
       </div>
     </div>
   </div>
@@ -373,16 +344,16 @@
     // ==== Modais ====
     (function () {
       const nodePendencia = document.getElementById('node-pendencia');
-      const nodeEscopo    = document.getElementById('node-escopo');
+      const nodeAgenda    = document.getElementById('node-agenda');
 
       const modalPend     = document.getElementById('modal-pendencias');
-      const modalEscopo   = document.getElementById('modal-escopo');
+      const modalAgenda   = document.getElementById('modal-agenda');
 
       const btnClosePend  = document.getElementById('modal-close-pend');
-      const btnCloseEsc   = document.getElementById('modal-close-escopo');
+      const btnCloseAgenda= document.getElementById('modal-close-agenda');
 
       const firstChoicePend  = document.getElementById('link-triagem-carteira'); // foco ao abrir
-      const firstChoiceEsc   = document.getElementById('link-escopo-carteira');  // foco ao abrir
+      const firstChoiceAgenda= document.getElementById('link-agenda-google');    // foco ao abrir
 
       let lastTrigger = null;
 
@@ -413,38 +384,36 @@
         });
       }
 
-      if (nodeEscopo) {
-        nodeEscopo.addEventListener('click', () => openModal(modalEscopo, firstChoiceEsc, nodeEscopo));
-        nodeEscopo.addEventListener('keydown', (e) => {
+      if (nodeAgenda) {
+        nodeAgenda.addEventListener('click', () => openModal(modalAgenda, firstChoiceAgenda, nodeAgenda));
+        nodeAgenda.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            openModal(modalEscopo, firstChoiceEsc, nodeEscopo);
+            openModal(modalAgenda, firstChoiceAgenda, nodeAgenda);
           }
         });
       }
 
-      btnClosePend && btnClosePend.addEventListener('click', () => closeModal(modalPend));
-      btnCloseEsc  && btnCloseEsc .addEventListener('click', () => closeModal(modalEscopo));
+      btnClosePend   && btnClosePend.addEventListener('click', () => closeModal(modalPend));
+      btnCloseAgenda && btnCloseAgenda.addEventListener('click', () => closeModal(modalAgenda));
 
-      [modalPend, modalEscopo].forEach(m => {
+      [modalPend, modalAgenda].forEach(m => {
         m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
       });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           if (modalPend.classList.contains('open'))  closeModal(modalPend);
-          if (modalEscopo.classList.contains('open')) closeModal(modalEscopo);
+          if (modalAgenda.classList.contains('open')) closeModal(modalAgenda);
         }
       });
 
-      // fechar modais ao clicar nos botões
+      // fechar modais ao clicar nos botões (opcional)
       const triagemBtn = document.getElementById('link-triagem-carteira');
       triagemBtn && triagemBtn.addEventListener('click', () => closeModal(modalPend));
-
-      const escopoBtn = document.getElementById('link-escopo-carteira');
-      escopoBtn && escopoBtn.addEventListener('click', () => closeModal(modalEscopo));
+      const agendaBtns = [document.getElementById('link-agenda-add'), document.getElementById('link-agenda-google')];
+      agendaBtns.forEach(b => b && b.addEventListener('click', () => closeModal(modalAgenda)));
     })();
   </script>
 </body>
 </html>
-
