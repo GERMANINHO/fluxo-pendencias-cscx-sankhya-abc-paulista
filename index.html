@@ -49,14 +49,15 @@
     /* ===== Modal ===== */
     .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:var(--overlay); z-index:999; }
     .modal.open{ display:flex; }
-    .modal__panel{ background:var(--modal-bg); color:var(--text); width:min(92vw,560px); border-radius:16px;
+    .modal__panel{ background:var(--modal-bg); color:var(--text); width:min(92vw,640px); border-radius:16px;
       box-shadow:0 10px 40px rgba(0,0,0,.25); padding:20px 20px 16px; border:1px solid #e2e8f0; max-height:86vh; overflow:auto; }
     .modal__header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
     .modal__title{ margin:0; font-size:20px; text-transform:uppercase; letter-spacing:.5px; }
     .modal__close{ appearance:none; border:0; background:transparent; font-size:20px; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--btn-text); }
     .modal__close:hover{ background:#0001; }
     .modal__body{ padding:8px 2px 0; }
-    .modal__actions{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
+    .modal__body h3{ margin:12px 0 6px; font-size:16px; }
+    .modal__actions{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px; }
     .btn{ display:inline-block; text-decoration:none; text-align:center; padding:12px 16px; border-radius:12px;
       border:1px solid var(--btn-border); background:var(--btn-bg); color:var(--btn-text); font-weight:700;
       letter-spacing:.6px; text-transform:uppercase; transition: background .2s, box-shadow .2s, transform .06s; }
@@ -183,7 +184,7 @@
     </div>
   </div>
 
-  <!-- Modais (iguais) -->
+  <!-- MODAL: REGISTRAR DEMANDAS -->
   <div class="modal" id="modal-pendencias" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-pendencias-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -202,6 +203,7 @@
     </div>
   </div>
 
+  <!-- MODAL: AGENDA -->
   <div class="modal" id="modal-agenda" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-agenda-title">
     <div class="modal__panel" role="document">
       <div class="modal__header">
@@ -222,17 +224,74 @@
     </div>
   </div>
 
+  <!-- MODAL: FUP -->
+  <div class="modal" id="modal-fup" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-fup-title">
+    <div class="modal__panel" role="document">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-fup-title">Fluxo FUP — como usar no Excel atual</h2>
+        <button class="modal__close" type="button" id="modal-close-fup" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal__body">
+        <p><strong>Objetivo:</strong> acompanhar cobranças e comunicação com o cliente até a comunicação final — sem criar novas abas/colunas.</p>
+
+        <h3>Onde preencher</h3>
+        <ul>
+          <li><strong>Resumo pendencias</strong>: placar por empresa/lista — Status macro, Data inicial e <em>Reprogramação</em> (próximo FUP ou nova entrega).</li>
+          <li><strong>Atividades Operac. › PENDÊNCIA</strong>: compromisso técnico — Respo. Direto, Data limite (compromisso), início/término da execução.</li>
+          <li><strong>Meses (Jan…Dez)</strong>: timeline dos toques — Prior. (1/2/3 = P1/P2/P3), Descrição “FUP – Empresa – resumo”, horários e Status do toque.</li>
+        </ul>
+
+        <h3>Fluxo rápido (6 passos)</h3>
+        <ol>
+          <li><strong>Onboarding:</strong> no <em>Resumo pendencias</em> crie a linha (Status=Em execução, Data inicial=hoje, Reprogramação=1º FUP). No <em>PENDÊNCIA</em> defina Respo. Direto e Data limite.</li>
+          <li><strong>Agende o 1º toque</strong> (aba do mês): Prior., Descrição “FUP – …”, Status <em>FUP – Agendado</em>.</li>
+          <li><strong>Realize</strong> o toque: mude para <em>FUP – Realizado</em> (ou <em>Sem contato</em>) e já agende o próximo. Atualize <em>Reprogramação</em>.</li>
+          <li><strong>Sem retorno:</strong> marque Status macro <em>Aguardando Cliente</em> e siga agendando linhas.</li>
+          <li><strong>Risco/replanejamento:</strong> crie toque <em>Risco de atraso</em> e ajuste <em>Reprogramação</em>; prazo oficial vive em <em>PENDÊNCIA › Data limite</em>.</li>
+          <li><strong>Fechamento:</strong> teste/homologação, depois toque <em>Comunicação final</em> e Status macro <em>Concluído</em>.</li>
+        </ol>
+
+        <h3>Vocabulário</h3>
+        <p><strong>Prioridade</strong>: 1=P1 (crítica), 2=P2, 3=P3.</p>
+        <p><strong>Status (toque nos Meses)</strong>: FUP – Agendado · FUP – Realizado · FUP – Sem contato · Aguardando Cliente · Bloqueio interno/Terceiros/Aguarda homologação · Risco de atraso · Comunicação final.</p>
+        <p><strong>Status (macro no Resumo)</strong>: Em execução · Aguardando Cliente · Aguardando Sankhya · Homologando · Concluído.</p>
+
+        <h3>Cadência sugerida</h3>
+        <ul>
+          <li><strong>P1</strong>: diário</li>
+          <li><strong>P2</strong>: a cada 2–3 dias úteis</li>
+          <li><strong>P3</strong>: semanal</li>
+        </ul>
+
+        <div class="modal__actions">
+          <a id="link-fup-excel" class="btn btn--green"
+             href="https://docs.google.com/spreadsheets/d/1sryDU-V5PvDq-zAbavGddmEMh0n-LbS8/edit?gid=1806435204#gid=1806435204"
+             target="_blank" rel="noopener noreferrer">Abrir planilha do FUP</a>
+        </div>
+        <div class="modal__hint">Tudo roda com o que você já tem. Depois, se quiser, automatizamos cadências e destaques com fórmulas.</div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    /* Modais */
+    /* ===== Infra de modais (reuso) ===== */
     (function(){
       const nodePendencia=document.getElementById('node-pendencia');
       const nodeAgenda=document.getElementById('node-agenda');
+      const nodeFup=document.getElementById('node-fup');
+
       const modalPend=document.getElementById('modal-pendencias');
       const modalAgenda=document.getElementById('modal-agenda');
+      const modalFup=document.getElementById('modal-fup');
+
       const btnClosePend=document.getElementById('modal-close-pend');
       const btnCloseAgenda=document.getElementById('modal-close-agenda');
+      const btnCloseFup=document.getElementById('modal-close-fup');
+
       const firstChoicePend=document.getElementById('link-triagem-carteira');
       const firstChoiceAgenda=document.getElementById('link-agenda-google');
+      const firstChoiceFup=document.getElementById('link-fup-excel');
+
       let lastTrigger=null;
 
       function openModal(modalEl,focusEl,returnFocusEl){
@@ -246,37 +305,41 @@
         if(lastTrigger&&lastTrigger.focus) lastTrigger.focus();
         document.documentElement.style.overflow=''; document.body.style.overflow='';
       }
-      if(nodePendencia){
-        nodePendencia.addEventListener('click',()=>openModal(modalPend,firstChoicePend,nodePendencia));
-        nodePendencia.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(modalPend,firstChoicePend,nodePendencia); }});
+
+      function asButton(el,modal,focus){
+        if(!el) return;
+        el.addEventListener('click',()=>openModal(modal,focus,el));
+        el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(modal,focus,el); }});
       }
-      if(nodeAgenda){
-        nodeAgenda.addEventListener('click',()=>openModal(modalAgenda,firstChoiceAgenda,nodeAgenda));
-        nodeAgenda.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(modalAgenda,firstChoiceAgenda,nodeAgenda); }});
-      }
-      btnClosePend&&btnClosePend.addEventListener('click',()=>closeModal(modalPend));
-      btnCloseAgenda&&btnCloseAgenda.addEventListener('click',()=>closeModal(modalAgenda));
-      [modalPend,modalAgenda].forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) closeModal(m); }));
+
+      asButton(nodePendencia,modalPend,firstChoicePend);
+      asButton(nodeAgenda,modalAgenda,firstChoiceAgenda);
+      asButton(nodeFup,modalFup,firstChoiceFup);
+
+      btnClosePend && btnClosePend.addEventListener('click',()=>closeModal(modalPend));
+      btnCloseAgenda&& btnCloseAgenda.addEventListener('click',()=>closeModal(modalAgenda));
+      btnCloseFup  && btnCloseFup.addEventListener('click',()=>closeModal(modalFup));
+
+      [modalPend,modalAgenda,modalFup].forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) closeModal(m); }));
       document.addEventListener('keydown',e=>{
-        if(e.key==='Escape'){ if(modalPend.classList.contains('open')) closeModal(modalPend);
-                               if(modalAgenda.classList.contains('open')) closeModal(modalAgenda); }
+        if(e.key==='Escape'){
+          [modalPend,modalAgenda,modalFup].forEach(m=> m.classList.contains('open') && closeModal(m));
+        }
       });
+
       document.getElementById('link-triagem-carteira')?.addEventListener('click',()=>closeModal(modalPend));
       [document.getElementById('link-agenda-add'),document.getElementById('link-agenda-google')]
         .forEach(b=>b&&b.addEventListener('click',()=>closeModal(modalAgenda)));
+      document.getElementById('link-fup-excel')?.addEventListener('click',()=>closeModal(modalFup));
     })();
 
-    /* FUP: abre link + posiciona FIM exatamente abaixo com MESMA distância da linha ref */
+    /* ===== Alinhar FIM exatamente abaixo do FUP com mesma distância da linha de referência ===== */
     (function(){
       const svg=document.querySelector('svg');
       const nodeFup=document.getElementById('node-fup');
       const nodeFim=document.getElementById('node-fim');
       const edge=document.getElementById('edge-fup-fim');
-      const refLine=document.querySelector('[data-ref-edge]'); // INICIO → REGISTRAR
-
-      // abre o subprocesso FUP
-      nodeFup.addEventListener('click',()=>window.open(
-        'https://germaninho.github.io/fup-pendencias-cscx-sankhya-abc-paulista/','_blank','noopener'));
+      const refLine=document.querySelector('[data-ref-edge]'); // INÍCIO → REGISTRAR DEMANDAS (comprimento de referência)
 
       function toSvgPoint(px,py){
         const pt = svg.createSVGPoint();
@@ -287,11 +350,9 @@
       function alignFimUnderFup(){
         if(!svg||!nodeFup||!nodeFim||!edge) return;
 
-        // comprimento da linha de referência em unidades do viewBox
+        // comprimento da linha de referência (em unidades do viewBox)
         let refLen = 47;
-        if(refLine){
-          refLen = Math.abs(refLine.x2.baseVal.value - refLine.x1.baseVal.value);
-        }
+        if(refLine){ refLen = Math.abs(refLine.x2.baseVal.value - refLine.x1.baseVal.value); }
 
         // base do FUP (hexágono) em coordenadas do viewBox
         const main = nodeFup.querySelector('.main');
@@ -302,20 +363,17 @@
         const xCenterSvg = centerSvg.x;
         const yBottomSvg = centerSvg.y;
 
-        // topo do círculo do FIM (offset interno do grupo)
+        // dados do círculo (dentro do grupo do FIM)
         const circle = nodeFim.querySelector('circle');
-        const circleTopOffset = circle.cy.baseVal.value - circle.r.baseVal.value; // 50 - 45 = 5
+        const circleCx = circle.cx.baseVal.value;                    // 55
+        const circleTopOffset = circle.cy.baseVal.value - circle.r.baseVal.value; // 5
 
-        // posiciona o FIM para que a linha tenha refLen e toque o topo do círculo
-        const fimBB = nodeFim.getBBox();
-        const fimX = xCenterSvg - (fimBB.width/2);
-        const fimY = (yBottomSvg + refLen) - circleTopOffset; // garante linha com mesmo tamanho da ref
+        // centraliza pelo cx do círculo e iguala o comprimento da linha
+        const fimX = xCenterSvg - circleCx;
+        const fimY = (yBottomSvg + refLen) - circleTopOffset;
 
         nodeFim.setAttribute('transform', `translate(${fimX},${fimY})`);
-
-        // desenha a linha do FUP até o topo do círculo (mesma espessura/estilo)
-        const lineEndY = yBottomSvg + refLen; // exatamente o topo do círculo após o translate acima
-        edge.setAttribute('d', `M ${xCenterSvg} ${yBottomSvg} V ${lineEndY}`);
+        edge.setAttribute('d', `M ${xCenterSvg} ${yBottomSvg} V ${yBottomSvg + refLen}`);
       }
 
       window.addEventListener('load', alignFimUnderFup);
