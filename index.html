@@ -8,153 +8,110 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #f5f3e7;
-      --text: #443c3d;
-      --green: #66cc00;
-      --purple: #72508d;
-
-      --modal-bg: #ffffff;
-      --overlay: rgba(0,0,0,.45);
-      --btn-bg: #0f172a0f;
-      --btn-border: #cbd5e1;
-      --btn-hover: #0f172a14;
-      --btn-text: #0f172a;
+    :root{
+      --bg:#f5f3e7; --text:#443c3d; --green:#66cc00; --purple:#72508d;
+      --modal-bg:#ffffff; --overlay:rgba(0,0,0,.45);
+      --btn-bg:#0f172a0f; --btn-border:#cbd5e1; --btn-hover:#0f172a14; --btn-text:#0f172a;
     }
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Open Sans Condensed", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    }
+    body{ margin:0; background:var(--bg); color:var(--text);
+      font-family:"Open Sans Condensed",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
+    .wrapper{ padding:50px 100px; }
 
-    .wrapper { padding: 50px 100px; }
+    .svg-container{ position:relative; width:100%; padding-bottom:100%; overflow:hidden; background:var(--bg); }
+    .svg-content{ position:absolute; inset:0; }
 
-    .svg-container { 
-      display: inline-block;
-      position: relative;
-      width: 100%;
-      padding-bottom: 100%;
-      vertical-align: middle; 
-      overflow: hidden; 
-      background: var(--bg);
-    }
+    .node{ cursor:pointer; outline:none; }
+    .node-label{ font-family:"Open Sans Condensed",Arial,sans-serif; font-weight:900; fill:#f5f3e7;
+      text-transform:uppercase; letter-spacing:.45px; font-size:10px; pointer-events:none; }
+    .node-label.xs{ font-size:7.5px; letter-spacing:.32px; }
+    .node-label.xxs{ font-size:6.5px; letter-spacing:.28px; }
+    .node-label.xxxs{ font-size:6px; letter-spacing:.26px; }
 
-    .svg-content { 
-      display: inline-block;
-      position: absolute;
-      inset: 0;
-    }
-
-    .node-label{
-      font-family: "Open Sans Condensed", Arial, sans-serif;
-      font-weight: 900;
-      fill: #f5f3e7;
-      text-transform: uppercase;
-      letter-spacing: .45px;
-      font-size: 10px; /* base */
-      pointer-events: none;
-    }
-    .node-label.xs  { font-size: 7.5px; letter-spacing: .32px; }
-    .node-label.xxs { font-size: 6.5px; letter-spacing: .28px; }
-    .node-label.xxxs{ font-size: 6px;  letter-spacing: .26px; } /* textos longos */
-
-    .node { cursor: pointer; outline: none; }
-
-    .node rect.main, .node polygon.main { transition: filter .25s ease; }
+    /* efeitos (de volta ao início de tudo) */
+    .node rect.main, .node polygon.main{ transition: transform .15s ease, filter .25s ease; }
     .node:hover rect.main, .node:focus rect.main,
-    .node:hover polygon.main, .node:focus polygon.main {
-      filter: brightness(1.06) saturate(1.02);
+    .node:hover polygon.main, .node:focus polygon.main{
+      transform: translateY(-1px);
+      filter: brightness(1.05) saturate(1.02) drop-shadow(0 8px 18px rgba(0,0,0,.18));
     }
 
-    /* ===== Pulse (SVG) ===== */
+    /* pulse padrão dos nós verdes */
     .node .pulse{
-      fill: var(--pulse-color, #66cc00);
-      fill-opacity: .10;
-      opacity: 0;
-      transform-box: fill-box;
-      transform-origin: center;
-      pointer-events: none;
+      fill: var(--pulse-color,#66cc00); fill-opacity:.10; opacity:0;
+      transform-box: fill-box; transform-origin:center; pointer-events:none;
     }
-    .node:hover .pulse,
-    .node:focus .pulse{
-      animation: pulseAnim 1.1s ease-out infinite;
-      opacity: 1;
-    }
-    @keyframes pulseAnim {
-      0%   { transform: scale(1);    opacity: .55; }
-      70%  { transform: scale(1.18); opacity: 0; }
-      100% { transform: scale(1.18); opacity: 0; }
-    }
+    .node:hover .pulse, .node:focus .pulse{ animation:pulseAnim 1.1s ease-out infinite; opacity:1; }
+    @keyframes pulseAnim{ 0%{transform:scale(1);opacity:.55}70%{transform:scale(1.18);opacity:0}100%{transform:scale(1.18);opacity:0} }
+
+    /* botão especial FUB (hexágono roxo) */
+    .node--fub .main{ fill: var(--purple); }
+    .node--fub .pulse{ stroke: var(--purple); stroke-width:2; fill:none; stroke-dasharray:6 6;
+      opacity:.7; animation:fubPulse 2.2s ease-in-out infinite; }
+    @keyframes fubPulse{ 0%{transform:scale(1);opacity:.45}50%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:.45} }
+
+    /* linhas pontilhadas */
+    .edge--dotted{ stroke:#333; stroke-width:2; stroke-dasharray:2 1; fill:none; stroke-linecap:round; }
 
     /* ===== Modal ===== */
-    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: var(--overlay); z-index: 999; }
-    .modal.open { display: flex; }
-    .modal__panel { background: var(--modal-bg); color: var(--text); width: min(92vw, 560px); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.25); padding: 20px 20px 16px; border: 1px solid #e2e8f0; max-height: 86vh; overflow: auto; }
-    .modal__header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
-    .modal__title { margin:0; font-size:20px; text-transform:uppercase; letter-spacing:.5px; }
-    .modal__close { appearance:none; border:0; background:transparent; font-size:20px; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--btn-text); }
-    .modal__close:hover { background:#0001; }
-    .modal__body { padding:8px 2px 0; }
-    .modal__actions { display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
-    .btn { display:inline-block; text-decoration:none; text-align:center; padding:12px 16px; border-radius:12px; border:1px solid var(--btn-border); background:var(--btn-bg); color:var(--btn-text); font-weight:700; letter-spacing:.6px; text-transform:uppercase; transition: background .2s, box-shadow .2s, transform .06s; }
-    .btn:hover, .btn:focus { background:var(--btn-hover); box-shadow:0 0 0 2px #00000010 inset; }
-    .btn:active { transform: translateY(1px); }
-    .btn--green { border-color:#86efac; }
-    .btn--purple { border-color:#d8b4fe; }
-    .modal__hint { margin:6px 2px 0; font-size:12px; opacity:.75; }
+    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:var(--overlay); z-index:999; }
+    .modal.open{ display:flex; }
+    .modal__panel{ background:var(--modal-bg); color:var(--text); width:min(92vw,560px); border-radius:16px;
+      box-shadow:0 10px 40px rgba(0,0,0,.25); padding:20px 20px 16px; border:1px solid #e2e8f0; max-height:86vh; overflow:auto; }
+    .modal__header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+    .modal__title{ margin:0; font-size:20px; text-transform:uppercase; letter-spacing:.5px; }
+    .modal__close{ appearance:none; border:0; background:transparent; font-size:20px; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer; color:var(--btn-text); }
+    .modal__close:hover{ background:#0001; }
+    .modal__body{ padding:8px 2px 0; }
+    .modal__actions{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
+    .btn{ display:inline-block; text-decoration:none; text-align:center; padding:12px 16px; border-radius:12px;
+      border:1px solid var(--btn-border); background:var(--btn-bg); color:var(--btn-text); font-weight:700;
+      letter-spacing:.6px; text-transform:uppercase; transition: background .2s, box-shadow .2s, transform .06s; }
+    .btn:hover, .btn:focus{ background:var(--btn-hover); box-shadow:0 0 0 2px #00000010 inset; }
+    .btn:active{ transform: translateY(1px); }
+    .btn--green{ border-color:#86efac; }
+    .btn--purple{ border-color:#d8b4fe; }
+    .modal__hint{ margin:6px 2px 0; font-size:12px; opacity:.75; }
   </style>
 </head>
 <body>
-
   <div class="wrapper">
     <div class="svg-container">
       <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet"
            class="svg-content" aria-labelledby="title desc" role="img"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title id="title">Fluxograma do Processo CS/CX</title>
-        <desc id="desc">Fluxo com início, sete etapas e término.</desc>
-
-        <defs>
-          <marker id="arrow" markerWidth="4" markerHeight="10" viewBox="-2 -4 4 4" refX="0" refY="0" markerUnits="strokeWidth" orient="auto">
-            <polyline points="2,-2 0,0 2,2" stroke="#443c3d" stroke-width="0.75px" fill="none"/>
-          </marker>
-        </defs>
+        <desc id="desc">Fluxo com início, etapas e término (FUB separado).</desc>
 
         <!-- Linha 1 -->
         <g class="box-group">
           <!-- INÍCIO -->
           <g transform="translate(-5)">
-            <circle fill="#000" cx="55" cy="50" r="45" opacity="1" />
+            <circle fill="#000" cx="55" cy="50" r="45" />
             <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
                   font-family="Open Sans Condensed" font-size="22" fill="#f5f3e7" font-weight="100"
-                  style="text-transform:uppercase; letter-spacing: 1px">Inicio</text>
-            <!-- Ajuste: x2 de 140 -> 147 para encostar no 1º bloco -->
-            <line x1="100" x2="147" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+                  style="text-transform:uppercase; letter-spacing:1px">Inicio</text>
+            <line x1="100" x2="147" y1="50" y2="50" class="edge--dotted" />
           </g>
 
-          <!-- Nó 1: REGISTRAR DEMANDAS -->
+          <!-- Nó 1 -->
           <g class="node" tabindex="0" id="node-pendencia" transform="translate(140)" role="button" aria-label="Abrir instruções de Registrar Demandas" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
-              <tspan x="47" dy="0">Registrar</tspan>
-              <tspan x="47" dy="11">demandas</tspan>
+              <tspan x="47" dy="0">Registrar</tspan><tspan x="47" dy="11">demandas</tspan>
             </text>
           </g>
 
-          <!-- ligação curta -->
-          <line x1="230" x2="250" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+          <line x1="230" x2="250" y1="50" y2="50" class="edge--dotted" />
 
-          <!-- Nó 2: CONSULTAR/ATUALIZAR CARTEIRA -->
+          <!-- Nó 2 -->
           <g class="node" tabindex="0" transform="translate(250)" style="--pulse-color:#66cc00;">
             <a class="node-link"
                href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                xlink:href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                target="_blank" rel="noopener noreferrer">
               <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <title>Consultar/atualizar a carteira ABC Paulista no Google Sheets</title>
               <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
               <text class="node-label xxs" x="47" y="37" text-anchor="middle">
                 <tspan x="47" dy="0">Consultar/atualizar</tspan>
@@ -165,10 +122,9 @@
             </a>
           </g>
 
-          <!-- ligação curta -->
-          <line x1="340" x2="360" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+          <line x1="340" x2="360" y1="50" y2="50" class="edge--dotted" />
 
-          <!-- Nó 3: AGENDAR/ALINHAR ATIVIDADES -->
+          <!-- Nó 3 -->
           <g class="node" tabindex="0" id="node-agenda" transform="translate(360)" role="button" aria-label="Abrir instruções de Agendar/Alinhar atividades" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
             <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
@@ -180,21 +136,17 @@
           </g>
         </g>
 
-        <!-- Linha vertical: Agendar/Alinhar ↓ Monitorar -->
-        <line x1="407" x2="407" y1="77" y2="124" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+        <!-- Ligação vertical Agendar ↓ Monitorar -->
+        <line x1="407" x2="407" y1="77" y2="124" class="edge--dotted" />
 
         <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
-          <!-- COMUNICAR/ACOMPANHAR -->
-          <g class="node" tabindex="0" transform="translate(140)" style="--pulse-color:#66cc00;">
-            <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-            <text class="node-label xxxs" x="47" y="34" text-anchor="middle">
-              <tspan x="47" dy="0">Comunicar e</tspan>
-              <tspan x="47" dy="9">acompanhar</tspan>
-              <tspan x="47" dy="9">cliente e</tspan>
-              <tspan x="47" dy="9">gestores</tspan>
-            </text>
+          <!-- *** NOVO: FLUXO FUB (subprocesso) *** -->
+          <g class="node node--fub" id="node-fub" tabindex="0" role="button" aria-label="Abrir Fluxo FUB" transform="translate(140)">
+            <!-- pulse e corpo (hexágono) -->
+            <polygon class="pulse" points="26,20 194,20 220,56 194,92 26,92 0,56"></polygon>
+            <polygon class="main"  points="26,24 190,24 214,56 190,88 26,88 6,56"></polygon>
+            <text class="node-label xxs" x="110" y="60" text-anchor="middle">FLUXO FUB</text>
           </g>
 
           <!-- REGISTRAR STATUS -->
@@ -221,43 +173,19 @@
           </g>
         </g>
 
-        <!-- Linha horizontal: Comunicar ↔ Registrar Status -->
-        <line x1="230" x2="250" y1="150" y2="150" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+        <!-- Ligações horizontais da linha 2 -->
+        <line x1="230" x2="250" y1="150" y2="150" class="edge--dotted" />
+        <line x1="340" x2="360" y1="150" y2="150" class="edge--dotted" />
 
-        <!-- Linha horizontal: Registrar Status ↔ Monitorar -->
-        <line x1="340" x2="360" y1="150" y2="150" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
+        <!-- Conector vertical FUB → FIM (desenhado via JS) -->
+        <path id="edge-fub-fim" class="edge--dotted" d="" />
 
-        <!-- Linha vertical: Comunicar ↕ Homologar -->
-        <line x1="185" x2="185" y1="175" y2="225" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
-
-        <!-- Linha 3 -->
-        <g class="box-group" transform="translate(0,200)">
-          <!-- HOMOLOGAR/ACEITAR -->
-          <g class="node" tabindex="0" transform="translate(140)" style="--pulse-color:#66cc00;">
-            <a class="node-link"
-               href="https://sankhya.sensedata.io/portfolio"
-               xlink:href="https://sankhya.sensedata.io/portfolio"
-               target="_blank" rel="noopener noreferrer">
-              <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <title>Homologar e aceitar entrega</title>
-              <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
-              <text class="node-label xs" x="47" y="40" text-anchor="middle">
-                <tspan x="47" dy="0">Homologar e aceitar</tspan>
-                <tspan x="47" dy="11">entrega</tspan>
-              </text>
-            </a>
-          </g>
-
-          <!-- Ajuste: x2 de 392 -> 402 para encostar no círculo -->
-          <line x1="230" x2="402" y1="50" y2="50" stroke-width="2" stroke="#443c3d" stroke-dasharray="2,1" />
-
-          <!-- FIM -->
-          <g transform="translate(392)">
-            <circle fill="#000" cx="55" cy="50" r="45" opacity="1" />
-            <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
-                  font-family="Open Sans Condensed" font-size="22" fill="#f5f3e7" font-weight="100"
-                  style="text-transform:uppercase; letter-spacing: 1px">Fim</text>
-          </g>
+        <!-- FIM (posicionado automaticamente abaixo do FUB) -->
+        <g id="node-fim" transform="translate(392,350)">
+          <circle fill="#000" cx="55" cy="50" r="45" />
+          <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
+                font-family="Open Sans Condensed" font-size="22" fill="#f5f3e7" font-weight="100"
+                style="text-transform:uppercase; letter-spacing:1px">Fim</text>
         </g>
       </svg>
     </div>
@@ -279,12 +207,9 @@
           <strong>registrar/atualizar</strong> as demandas para dar andamento ao processo.
         </p>
         <div class="modal__actions">
-          <a id="link-triagem-carteira"
-             class="btn btn--green"
+          <a id="link-triagem-carteira" class="btn btn--green"
              href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=292230500#gid=292230500"
-             target="_blank" rel="noopener noreferrer">
-            Planilha Carteira ABC Paulista
-          </a>
+             target="_blank" rel="noopener noreferrer">Planilha Carteira ABC Paulista</a>
         </div>
         <div class="modal__hint">Dúvidas? Verifique o acesso à planilha e selecione a empresa correta.</div>
       </div>
@@ -299,128 +224,102 @@
         <button class="modal__close" type="button" id="modal-close-agenda" aria-label="Fechar">✕</button>
       </div>
       <div class="modal__body">
-        <p>
-          Esta etapa consolida duas frentes durante a passagem/encaminhamento ao Rogério:
-          <strong>estimar esforço/custos/recursos</strong> e
-          <strong>detalhar escopo/entregáveis/plano</strong>.
-        </p>
-
-        <h3 style="margin:10px 0 6px; font-size:16px;">1) Estimar esforço, custos e recursos</h3>
-        <ul>
-          <li>Dimensionar esforço (horas/pontos), custos diretos/indiretos e disponibilidade de pessoas.</li>
-          <li>Identificar dependências, riscos e premissas; mapear impactos em prazos e qualidade.</li>
-          <li>Registrar a estimativa na carteira/registro do cliente para rastreabilidade.</li>
-        </ul>
-
-        <h3 style="margin:10px 0 6px; font-size:16px;">2) Detalhar escopo, entregáveis e plano (5W2H)</h3>
-        <ol>
-          <li><strong>Objetivo &amp; Escopo:</strong> descrever o objetivo (1–2 frases) e listar o que está dentro/fora do escopo.</li>
-          <li><strong>Entregáveis &amp; Critérios de Aceite:</strong> o que será entregue e como será validado.</li>
-          <li><strong>Plano de Ação (5W2H):</strong> o quê, por quê, quem, quando, onde, como, quanto.</li>
-          <li><strong>Prazos e Marcos:</strong> cronograma macro e dependências.</li>
-          <li><strong>RACI:</strong> quem executa, aprova, apoia e é informado (incluir cliente / Rogério quando aplicável).</li>
-          <li><strong>Riscos &amp; Premissas:</strong> mitigar e explicitar.</li>
-          <li><strong>Métricas &amp; Acompanhamento:</strong> indicadores e cadência de reporte.</li>
-        </ol>
-
-        <p>Após documentar, <strong>agendar e repassar as atividades</strong> de alinhamento com o Rogério Furian.</p>
-
+        <p>Consolidar estimativa/capacidade e detalhar escopo/entregáveis antes do compromisso.</p>
         <div class="modal__actions">
-          <a id="link-agenda-add"
-             class="btn btn--purple"
+          <a id="link-agenda-add" class="btn btn--purple"
              href="https://calendar.google.com/calendar/u/0?cid=cm9nZXJpby5zb3JjaUBzYW5raHlhLmNvbS5icg"
-             target="_blank" rel="noopener noreferrer">
-            Adicionar agenda do Rogério
-          </a>
-          <a id="link-agenda-google"
-             class="btn btn--green"
-             href="https://calendar.google.com/calendar/u/2/r"
-             target="_blank" rel="noopener noreferrer">
-            Abrir minha agenda do Google
-          </a>
+             target="_blank" rel="noopener noreferrer">Adicionar agenda do Rogério</a>
+          <a id="link-agenda-google" class="btn btn--green"
+             href="https://calendar.google.com/calendar/u/2/r" target="_blank" rel="noopener noreferrer">Abrir minha agenda do Google</a>
         </div>
-
-        <div class="modal__hint">
-          Dica: inclua no evento um resumo da atividade, responsáveis, prazos e links de apoio (carteira/registro).
-        </div>
+        <div class="modal__hint">Inclua no evento responsáveis, prazos e links de apoio.</div>
       </div>
     </div>
   </div>
 
   <script>
-    (function () {
-      const nodePendencia = document.getElementById('node-pendencia');
-      const nodeAgenda    = document.getElementById('node-agenda');
+    (function(){
+      const nodePendencia=document.getElementById('node-pendencia');
+      const nodeAgenda=document.getElementById('node-agenda');
 
-      const modalPend     = document.getElementById('modal-pendencias');
-      const modalAgenda   = document.getElementById('modal-agenda');
+      const modalPend=document.getElementById('modal-pendencias');
+      const modalAgenda=document.getElementById('modal-agenda');
 
-      const btnClosePend  = document.getElementById('modal-close-pend');
-      const btnCloseAgenda= document.getElementById('modal-close-agenda');
+      const btnClosePend=document.getElementById('modal-close-pend');
+      const btnCloseAgenda=document.getElementById('modal-close-agenda');
 
-      const firstChoicePend  = document.getElementById('link-triagem-carteira');
-      const firstChoiceAgenda= document.getElementById('link-agenda-google');
+      const firstChoicePend=document.getElementById('link-triagem-carteira');
+      const firstChoiceAgenda=document.getElementById('link-agenda-google');
 
-      let lastTrigger = null;
-
-      function openModal(modalEl, focusEl, returnFocusEl) {
-        lastTrigger = returnFocusEl || null;
-        modalEl.classList.add('open');
-        modalEl.setAttribute('aria-hidden', 'false');
-        setTimeout(() => focusEl && focusEl.focus(), 0);
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
+      let lastTrigger=null;
+      function openModal(modalEl,focusEl,returnFocusEl){
+        lastTrigger=returnFocusEl||null;
+        modalEl.classList.add('open'); modalEl.setAttribute('aria-hidden','false');
+        setTimeout(()=>focusEl&&focusEl.focus(),0);
+        document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
+      }
+      function closeModal(modalEl){
+        modalEl.classList.remove('open'); modalEl.setAttribute('aria-hidden','true');
+        if(lastTrigger&&lastTrigger.focus) lastTrigger.focus();
+        document.documentElement.style.overflow=''; document.body.style.overflow='';
       }
 
-      function closeModal(modalEl) {
-        modalEl.classList.remove('open');
-        modalEl.setAttribute('aria-hidden', 'true');
-        if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
+      if(nodePendencia){
+        nodePendencia.addEventListener('click',()=>openModal(modalPend,firstChoicePend,nodePendencia));
+        nodePendencia.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(modalPend,firstChoicePend,nodePendencia); }});
       }
-
-      if (nodePendencia) {
-        nodePendencia.addEventListener('click', () => openModal(modalPend, firstChoicePend, nodePendencia));
-        nodePendencia.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal(modalPend, firstChoicePend, nodePendencia);
-          }
-        });
+      if(nodeAgenda){
+        nodeAgenda.addEventListener('click',()=>openModal(modalAgenda,firstChoiceAgenda,nodeAgenda));
+        nodeAgenda.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(modalAgenda,firstChoiceAgenda,nodeAgenda); }});
       }
-
-      if (nodeAgenda) {
-        nodeAgenda.addEventListener('click', () => openModal(modalAgenda, firstChoiceAgenda, nodeAgenda));
-        nodeAgenda.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal(modalAgenda, firstChoiceAgenda, nodeAgenda);
-          }
-        });
-      }
-
-      btnClosePend   && btnClosePend.addEventListener('click', () => closeModal(modalPend));
-      btnCloseAgenda && btnCloseAgenda.addEventListener('click', () => closeModal(modalAgenda));
-
-      [modalPend, modalAgenda].forEach(m => {
-        m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); });
+      btnClosePend&&btnClosePend.addEventListener('click',()=>closeModal(modalPend));
+      btnCloseAgenda&&btnCloseAgenda.addEventListener('click',()=>closeModal(modalAgenda));
+      [modalPend,modalAgenda].forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) closeModal(m); }));
+      document.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){ if(modalPend.classList.contains('open')) closeModal(modalPend);
+                               if(modalAgenda.classList.contains('open')) closeModal(modalAgenda);}
       });
+      const triagemBtn=document.getElementById('link-triagem-carteira');
+      triagemBtn&&triagemBtn.addEventListener('click',()=>closeModal(modalPend));
+      const agendaBtns=[document.getElementById('link-agenda-add'),document.getElementById('link-agenda-google')];
+      agendaBtns.forEach(b=>b&&b.addEventListener('click',()=>closeModal(modalAgenda)));
+    })();
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          if (modalPend.classList.contains('open'))  closeModal(modalPend);
-          if (modalAgenda.classList.contains('open')) closeModal(modalAgenda);
-        }
-      });
+    // === FLUXO FUB: abrir link + alinhar FIM exatamente abaixo ===
+    (function(){
+      const nodeFub=document.getElementById('node-fub');
+      const nodeFim=document.getElementById('node-fim');
+      const edge=document.getElementById('edge-fub-fim');
 
-      const triagemBtn = document.getElementById('link-triagem-carteira');
-      triagemBtn && triagemBtn.addEventListener('click', () => closeModal(modalPend));
-      const agendaBtns = [document.getElementById('link-agenda-add'), document.getElementById('link-agenda-google')];
-      agendaBtns.forEach(b => b && b.addEventListener('click', () => closeModal(modalAgenda)));
+      function openFub(){
+        // link do subprocesso (ajuste se mudar o repo)
+        window.open('https://germaninho.github.io/fup-pendencias-cscx-sankhya-abc-paulista/','_blank','noopener');
+      }
+      if(nodeFub){
+        nodeFub.addEventListener('click',openFub);
+        nodeFub.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openFub(); }});
+      }
+
+      function alignFimUnderFub(){
+        if(!nodeFub||!nodeFim||!edge) return;
+        const bb = nodeFub.getBBox();
+        const m  = nodeFub.getCTM();
+        const xCenter = m.e + bb.x + bb.width/2;
+        const yBottom = m.f + bb.y + bb.height;
+        const gap = 160; // distância entre FUB e FIM
+
+        // centraliza o FIM exatamente embaixo do FUB
+        const fimBB = nodeFim.getBBox();
+        const fimX = xCenter - (fimBB.width/2);
+        const fimY = yBottom + gap;
+        nodeFim.setAttribute('transform', `translate(${fimX},${fimY})`);
+
+        // linha pontilhada vertical
+        edge.setAttribute('d', `M ${xCenter} ${yBottom} V ${fimY}`);
+      }
+      window.addEventListener('load', alignFimUnderFub);
+      window.addEventListener('resize', alignFimUnderFub);
     })();
   </script>
 </body>
 </html>
-
-
