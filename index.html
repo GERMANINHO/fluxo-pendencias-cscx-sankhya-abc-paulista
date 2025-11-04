@@ -38,10 +38,10 @@
     @keyframes pulseAnim{ 0%{transform:scale(1);opacity:.55}70%{transform:scale(1.18);opacity:0}100%{transform:scale(1.18);opacity:0} }
 
     /* botão especial FUP (hexágono 90x50) */
-    .node--fub .main{ fill:var(--purple); }
-    .node--fub .pulse{ stroke:var(--purple); stroke-width:2; fill:none; stroke-dasharray:6 6;
-      opacity:.7; animation:fubPulse 2.2s ease-in-out infinite; }
-    @keyframes fubPulse{ 0%{transform:scale(1);opacity:.45}50%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:.45} }
+    .node--fup .main{ fill:var(--purple); }
+    .node--fup .pulse{ stroke:var(--purple); stroke-width:2; fill:none; stroke-dasharray:6 6;
+      opacity:.7; animation:fupPulse 2.2s ease-in-out infinite; }
+    @keyframes fupPulse{ 0%{transform:scale(1);opacity:.45}50%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:.45} }
 
     /* linhas */
     .edge--dotted{ stroke:#333; stroke-width:2; stroke-dasharray:2 1; fill:none; stroke-linecap:round; }
@@ -83,7 +83,8 @@
             <text x="55" y="50" text-anchor="middle" dominant-baseline="middle"
                   font-family="Open Sans Condensed" font-size="22" fill="#f5f3e7" font-weight="100"
                   style="text-transform:uppercase; letter-spacing:1px">Inicio</text>
-            <line x1="100" x2="147" y1="50" y2="50" class="edge--dotted"/>
+            <!-- Linha de referência para igualar o tamanho FUP→FIM -->
+            <line x1="100" x2="147" y1="50" y2="50" class="edge--dotted" data-ref-edge="true"/>
           </g>
 
           <!-- Nó 1 -->
@@ -134,7 +135,7 @@
         <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
           <!-- FLUXO FUP (hexágono 90x50) -->
-          <g class="node node--fub" id="node-fub" tabindex="0" role="button" aria-label="Abrir Fluxo FUP" transform="translate(140)">
+          <g class="node node--fup" id="node-fup" tabindex="0" role="button" aria-label="Abrir Fluxo FUP" transform="translate(140)">
             <polygon class="pulse" points="0,50 14,23 78,23 92,50 78,77 14,77"></polygon>
             <polygon class="main"  points="2,50 16,25 76,25 90,50 76,75 16,75"></polygon>
             <text class="node-label xxs" x="47" y="52" text-anchor="middle">FLUXO FUP</text>
@@ -169,7 +170,7 @@
         <line x1="340" x2="360" y1="150" y2="150" class="edge--dotted"/>
 
         <!-- Conector vertical FUP → FIM -->
-        <path id="edge-fub-fim" class="edge--dotted" d=""/>
+        <path id="edge-fup-fim" class="edge--dotted" d=""/>
 
         <!-- FIM (posicionado via JS) -->
         <g id="node-fim" transform="translate(392,350)">
@@ -265,15 +266,16 @@
         .forEach(b=>b&&b.addEventListener('click',()=>closeModal(modalAgenda)));
     })();
 
-    /* FUP: abre link + posiciona FIM exatamente abaixo, em unidades SVG */
+    /* FUP: abre link + posiciona FIM exatamente abaixo com MESMA distância da linha ref */
     (function(){
       const svg=document.querySelector('svg');
-      const nodeFub=document.getElementById('node-fub');
+      const nodeFup=document.getElementById('node-fup');
       const nodeFim=document.getElementById('node-fim');
-      const edge=document.getElementById('edge-fub-fim');
+      const edge=document.getElementById('edge-fup-fim');
+      const refLine=document.querySelector('[data-ref-edge]'); // INICIO → REGISTRAR
 
       // abre o subprocesso FUP
-      nodeFub.addEventListener('click',()=>window.open(
+      nodeFup.addEventListener('click',()=>window.open(
         'https://germaninho.github.io/fup-pendencias-cscx-sankhya-abc-paulista/','_blank','noopener'));
 
       function toSvgPoint(px,py){
@@ -282,37 +284,42 @@
         return pt.matrixTransform(svg.getScreenCTM().inverse());
       }
 
-      function alignFimUnderFub(){
-        if(!svg||!nodeFub||!nodeFim||!edge) return;
+      function alignFimUnderFup(){
+        if(!svg||!nodeFup||!nodeFim||!edge) return;
 
-        // centro e base do FUP em coordenadas de tela
-        const main = nodeFub.querySelector('.main');
+        // comprimento da linha de referência em unidades do viewBox
+        let refLen = 47;
+        if(refLine){
+          refLen = Math.abs(refLine.x2.baseVal.value - refLine.x1.baseVal.value);
+        }
+
+        // base do FUP (hexágono) em coordenadas do viewBox
+        const main = nodeFup.querySelector('.main');
         const rect = main.getBoundingClientRect();
         const centerPx = rect.left + rect.width/2;
         const bottomPx = rect.bottom;
-
-        // converte para coordenadas do viewBox (SVG)
         const centerSvg = toSvgPoint(centerPx, bottomPx);
-        const yBottomSvg = centerSvg.y;
         const xCenterSvg = centerSvg.x;
+        const yBottomSvg = centerSvg.y;
 
-        // posiciona o FIM centralizado
-        const gap = 110; // distância FUP → FIM
-        const fimBB = nodeFim.getBBox(); // tamanho em unidades SVG
-        let fimX = xCenterSvg - (fimBB.width/2);
-        let fimY = yBottomSvg + gap;
+        // topo do círculo do FIM (offset interno do grupo)
+        const circle = nodeFim.querySelector('circle');
+        const circleTopOffset = circle.cy.baseVal.value - circle.r.baseVal.value; // 50 - 45 = 5
 
-        // evita sair do viewBox
-        const vb = svg.viewBox.baseVal;
-        const maxY = vb.y + vb.height - (fimBB.height + 10);
-        if (fimY > maxY) fimY = maxY;
+        // posiciona o FIM para que a linha tenha refLen e toque o topo do círculo
+        const fimBB = nodeFim.getBBox();
+        const fimX = xCenterSvg - (fimBB.width/2);
+        const fimY = (yBottomSvg + refLen) - circleTopOffset; // garante linha com mesmo tamanho da ref
 
         nodeFim.setAttribute('transform', `translate(${fimX},${fimY})`);
-        edge.setAttribute('d', `M ${xCenterSvg} ${yBottomSvg} V ${fimY}`);
+
+        // desenha a linha do FUP até o topo do círculo (mesma espessura/estilo)
+        const lineEndY = yBottomSvg + refLen; // exatamente o topo do círculo após o translate acima
+        edge.setAttribute('d', `M ${xCenterSvg} ${yBottomSvg} V ${lineEndY}`);
       }
 
-      window.addEventListener('load', alignFimUnderFub);
-      window.addEventListener('resize', alignFimUnderFub);
+      window.addEventListener('load', alignFimUnderFup);
+      window.addEventListener('resize', alignFimUnderFup);
     })();
   </script>
 </body>
