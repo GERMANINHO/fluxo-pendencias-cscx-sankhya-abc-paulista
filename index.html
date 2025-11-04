@@ -143,7 +143,6 @@
         <g class="box-group" transform="translate(0,100)">
           <!-- *** FLUXO FUB (hexágono 90x50, mesma escala dos outros) *** -->
           <g class="node node--fub" id="node-fub" tabindex="0" role="button" aria-label="Abrir Fluxo FUB" transform="translate(140)">
-            <!-- pulse e corpo -->
             <polygon class="pulse" points="0,50 14,23 78,23 92,50 78,77 14,77"></polygon>
             <polygon class="main"  points="2,50 16,25 76,25 90,50 76,75 16,75"></polygon>
             <text class="node-label xxs" x="47" y="52" text-anchor="middle">FLUXO FUB</text>
@@ -303,7 +302,6 @@
       function alignFimUnderFub(){
         if(!nodeFub||!nodeFim||!edge||!svg) return;
 
-        // usar a bbox do polígono principal (preciso) para evitar “pular”
         const main = nodeFub.querySelector('.main') || nodeFub;
         const bb = main.getBBox();
         const m  = nodeFub.getCTM();
@@ -311,15 +309,14 @@
         const xCenter = m.e + bb.x + bb.width/2;
         const yBottom = m.f + bb.y + bb.height;
 
-        const gap = 110; // distância entre FUB e FIM (mais compacto)
+        const gap = 110; // distância entre FUB e FIM
         const vb = svg.viewBox.baseVal;
         const fimBB = nodeFim.getBBox();
 
-        // centraliza o FIM exatamente embaixo do FUB
         let fimX = xCenter - (fimBB.width/2);
         let fimY = yBottom + gap;
 
-        // clamp vertical para nunca cortar o círculo
+        // clamp vertical
         const maxY = vb.y + vb.height - (fimBB.height + 10);
         if (fimY > maxY) fimY = maxY;
 
