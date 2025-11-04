@@ -24,11 +24,11 @@
     .node{ cursor:pointer; outline:none; }
     .node-label{ font-family:"Open Sans Condensed",Arial,sans-serif; font-weight:900; fill:#f5f3e7;
       text-transform:uppercase; letter-spacing:.45px; font-size:10px; pointer-events:none; }
-    .node-label.xs{ font-size:7.5px; letter-spacing:.32px; }
-    .node-label.xxs{ font-size:6.5px; letter-spacing:.28px; }
-    .node-label.xxxs{ font-size:6px; letter-spacing:.26px; }
+    .node-label.xs{   font-size:7.5px; letter-spacing:.32px; }
+    .node-label.xxs{  font-size:6.5px; letter-spacing:.28px; }
+    .node-label.xxxs{ font-size:6px;   letter-spacing:.26px; }
 
-    /* efeitos (de volta ao início de tudo) */
+    /* efeitos */
     .node rect.main, .node polygon.main{ transition: transform .15s ease, filter .25s ease; }
     .node:hover rect.main, .node:focus rect.main,
     .node:hover polygon.main, .node:focus polygon.main{
@@ -44,7 +44,7 @@
     .node:hover .pulse, .node:focus .pulse{ animation:pulseAnim 1.1s ease-out infinite; opacity:1; }
     @keyframes pulseAnim{ 0%{transform:scale(1);opacity:.55}70%{transform:scale(1.18);opacity:0}100%{transform:scale(1.18);opacity:0} }
 
-    /* botão especial FUB (hexágono roxo) */
+    /* botão especial FUB (hexágono roxo, mesmo tamanho 90x50) */
     .node--fub .main{ fill: var(--purple); }
     .node--fub .pulse{ stroke: var(--purple); stroke-width:2; fill:none; stroke-dasharray:6 6;
       opacity:.7; animation:fubPulse 2.2s ease-in-out infinite; }
@@ -97,7 +97,7 @@
           <!-- Nó 1 -->
           <g class="node" tabindex="0" id="node-pendencia" transform="translate(140)" role="button" aria-label="Abrir instruções de Registrar Demandas" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <rect class="main"  x="2" y="25" rx="3" ry="3" width="90" height="50" fill="#66cc00"/>
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
               <tspan x="47" dy="0">Registrar</tspan><tspan x="47" dy="11">demandas</tspan>
             </text>
@@ -112,7 +112,7 @@
                xlink:href="https://docs.google.com/spreadsheets/d/1Q5yMDzWXTsXY8uEi80FEA_UssI9wyC9q/edit?gid=259369935#gid=259369935"
                target="_blank" rel="noopener noreferrer">
               <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-              <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+              <rect class="main"  x="2" y="25" rx="3" ry="3" width="90" height="50" fill="#66cc00"/>
               <text class="node-label xxs" x="47" y="37" text-anchor="middle">
                 <tspan x="47" dy="0">Consultar/atualizar</tspan>
                 <tspan x="47" dy="9">carteira ABC</tspan>
@@ -127,7 +127,7 @@
           <!-- Nó 3 -->
           <g class="node" tabindex="0" id="node-agenda" transform="translate(360)" role="button" aria-label="Abrir instruções de Agendar/Alinhar atividades" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <rect class="main"  x="2" y="25" rx="3" ry="3" width="90" height="50" fill="#66cc00"/>
             <text class="node-label xxs" x="47" y="36" text-anchor="middle">
               <tspan x="47" dy="0">Agendar/alinhar</tspan>
               <tspan x="47" dy="9">atividades com</tspan>
@@ -141,18 +141,18 @@
 
         <!-- Linha 2 -->
         <g class="box-group" transform="translate(0,100)">
-          <!-- *** NOVO: FLUXO FUB (subprocesso) *** -->
+          <!-- *** FLUXO FUB (hexágono 90x50, mesma escala dos outros) *** -->
           <g class="node node--fub" id="node-fub" tabindex="0" role="button" aria-label="Abrir Fluxo FUB" transform="translate(140)">
-            <!-- pulse e corpo (hexágono) -->
-            <polygon class="pulse" points="26,20 194,20 220,56 194,92 26,92 0,56"></polygon>
-            <polygon class="main"  points="26,24 190,24 214,56 190,88 26,88 6,56"></polygon>
-            <text class="node-label xxs" x="110" y="60" text-anchor="middle">FLUXO FUB</text>
+            <!-- pulse e corpo -->
+            <polygon class="pulse" points="0,50 14,23 78,23 92,50 78,77 14,77"></polygon>
+            <polygon class="main"  points="2,50 16,25 76,25 90,50 76,75 16,75"></polygon>
+            <text class="node-label xxs" x="47" y="52" text-anchor="middle">FLUXO FUB</text>
           </g>
 
           <!-- REGISTRAR STATUS -->
           <g class="node" tabindex="0" transform="translate(250)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <rect class="main"  x="2" y="25" rx="3" ry="3" width="90" height="50" fill="#66cc00"/>
             <text class="node-label xs" x="47" y="40" text-anchor="middle">
               <tspan x="47" dy="0">Registrar status</tspan>
               <tspan x="47" dy="11">e próximos</tspan>
@@ -163,7 +163,7 @@
           <!-- MONITORAR CONTINUAMENTE -->
           <g class="node" tabindex="0" transform="translate(360)" style="--pulse-color:#66cc00;">
             <rect class="pulse" x="2" y="25" rx="6" ry="6" width="90" height="50" />
-            <rect class="main" fill="#66cc00" x="2" y="25" rx="3" ry="3" width="90" height="50" />
+            <rect class="main"  x="2" y="25" rx="3" ry="3" width="90" height="50" fill="#66cc00"/>
             <text class="node-label xxs" x="47" y="36" text-anchor="middle">
               <tspan x="47" dy="0">Monitorar</tspan>
               <tspan x="47" dy="9">continuamente</tspan>
@@ -277,7 +277,7 @@
       [modalPend,modalAgenda].forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) closeModal(m); }));
       document.addEventListener('keydown',e=>{
         if(e.key==='Escape'){ if(modalPend.classList.contains('open')) closeModal(modalPend);
-                               if(modalAgenda.classList.contains('open')) closeModal(modalAgenda);}
+                               if(modalAgenda.classList.contains('open')) closeModal(modalAgenda); }
       });
       const triagemBtn=document.getElementById('link-triagem-carteira');
       triagemBtn&&triagemBtn.addEventListener('click',()=>closeModal(modalPend));
@@ -285,14 +285,14 @@
       agendaBtns.forEach(b=>b&&b.addEventListener('click',()=>closeModal(modalAgenda)));
     })();
 
-    // === FLUXO FUB: abrir link + alinhar FIM exatamente abaixo ===
+    // === FLUXO FUB: abrir link + alinhar FIM exatamente abaixo (com clamp) ===
     (function(){
       const nodeFub=document.getElementById('node-fub');
       const nodeFim=document.getElementById('node-fim');
       const edge=document.getElementById('edge-fub-fim');
+      const svg=document.querySelector('svg');
 
       function openFub(){
-        // link do subprocesso (ajuste se mudar o repo)
         window.open('https://germaninho.github.io/fup-pendencias-cscx-sankhya-abc-paulista/','_blank','noopener');
       }
       if(nodeFub){
@@ -301,24 +301,33 @@
       }
 
       function alignFimUnderFub(){
-        if(!nodeFub||!nodeFim||!edge) return;
-        const bb = nodeFub.getBBox();
+        if(!nodeFub||!nodeFim||!edge||!svg) return;
+
+        // usar a bbox do polígono principal (preciso) para evitar “pular”
+        const main = nodeFub.querySelector('.main') || nodeFub;
+        const bb = main.getBBox();
         const m  = nodeFub.getCTM();
+
         const xCenter = m.e + bb.x + bb.width/2;
         const yBottom = m.f + bb.y + bb.height;
-        const gap = 160; // distância entre FUB e FIM
+
+        const gap = 110; // distância entre FUB e FIM (mais compacto)
+        const vb = svg.viewBox.baseVal;
+        const fimBB = nodeFim.getBBox();
 
         // centraliza o FIM exatamente embaixo do FUB
-        const fimBB = nodeFim.getBBox();
-        const fimX = xCenter - (fimBB.width/2);
-        const fimY = yBottom + gap;
-        nodeFim.setAttribute('transform', `translate(${fimX},${fimY})`);
+        let fimX = xCenter - (fimBB.width/2);
+        let fimY = yBottom + gap;
 
-        // linha pontilhada vertical
+        // clamp vertical para nunca cortar o círculo
+        const maxY = vb.y + vb.height - (fimBB.height + 10);
+        if (fimY > maxY) fimY = maxY;
+
+        nodeFim.setAttribute('transform', `translate(${fimX},${fimY})`);
         edge.setAttribute('d', `M ${xCenter} ${yBottom} V ${fimY}`);
       }
-      window.addEventListener('load', alignFimUnderFub);
-      window.addEventListener('resize', alignFimUnderFub);
+      window.addEventListener('load',  alignFimUnderFub);
+      window.addEventListener('resize',alignFimUnderFub);
     })();
   </script>
 </body>
